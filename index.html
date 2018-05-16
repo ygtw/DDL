@@ -27,9 +27,19 @@
   <style type="text/css">
     video
     {
-    	width:100px;
-    	height: 75px;
+    	width:300px;
+    	height: 230px;
     }
+    #face_video
+    {
+      border:10px solid black
+    }
+
+    #face_video_canvas
+    {
+      border:10px solid black
+    }
+
   </style>
 
   <title>DD學習網</title>
@@ -212,10 +222,11 @@ h1 {
 <br>
 
       <p id="bot" style="text-align:center" > <img data-toggle="popover" data-placement="top" title="" data-content="吃飽沒？" id="bot_img" style="width:150px;" src="emotion/normal_a.gif"></p>
-      <div id="affdex_elements" ></div>
+      <br><br>
+      <div id="affdex_elements" style=""></div>
   
 
-
+<br>
     <div class="form-group">
   <input type="text" class="form-control" placeholder="請輸入你的想法..." id="input_text">
 </div>
@@ -276,8 +287,8 @@ h1 {
       // SDK Needs to create video and canvas nodes in the DOM in order to function
       // Here we are adding those nodes a predefined div.
       var divRoot = $("#affdex_elements")[0];
-      var width = 100;
-      var height = 75;
+      var width = 300;
+      var height = 230;
       var talk = ['吃飽未？','我也這麼覺得','真的嗎？','你確定？','也是','嗯嗯','...','呵呵','喵喵喵喵','？？？']
       var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
 
