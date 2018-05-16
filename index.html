@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
-      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
   <script type="text/javascript" src="//code.jquery.com/jquery-3.1.0.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
@@ -17,6 +15,7 @@
     
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
    
+  <link href="https://getbootstrap.com/docs/4.1/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
   
    
@@ -35,40 +34,117 @@
 
   <title>DD學習網</title>
 
-  
+  <style>
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+/*
+ * Typography
+ */
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+
+}
+
+.sidebar-right
+{
+  height:100%;
+  position:fixed;
+  right:0;
+}
+
+/* Sidebar navigation */
+.sidebar {
+
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+  </style>
 </head>
 
 <body>
-  <body>
-  	<nav class="navbar navbar-default ">
+    <nav class="navbar navbar-expand-md fixed-top bg-light">
   <div class="container">
          <a class="navbar-brand" href="#">DD學習網 </a>
-<button type="button" class="btn btn-default navbar-btn">
+<button type="button" class="btn btn-light">
 	<i class="fas fa-book"></i>
 
 課程</button>
-<button type="button" class="btn btn-default navbar-btn">
+<button type="button" class="btn btn-light">
 			<i class="fas fa-trophy"></i>
 成就</button>
-<button type="button" class="btn btn-default navbar-btn">
+<button type="button" class="btn btn-light">
 		<i class="fas fa-cogs"></i>
 設定</button>
-<button type="button" class="btn btn-default navbar-btn">
+<button type="button" class="btn btn-light">
 				<i class="fas fa-question-circle"></i>
 導覽</button>
-<button type="button" class="btn btn-default navbar-btn">
+<button type="button" class="btn btn-light">
 <i class="fas fa-clipboard-check"></i>
 問卷</button>
 
-<p class="navbar-text navbar-right " >
 <img width="200px" src="ddlab-logo-out-05.png" />
-</p>
+
   </div>
 </nav>
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-md-2" id="left" style="">
+      <nav class="col-md-2 sidebar" id="left" style="">
+            <div class="">
 <br><br>      	<p>
 
           ch1<br>
@@ -87,10 +163,10 @@
 
       	<br>
       </p>
-      
-
       </div>
-      <div class="col-md-7" id="reading" style="">
+
+      </nav>
+      <div class="col-sm-7 offset-sm-2 col-md-7 offset-md-2 pt-3" id="reading" style="">
 <br><br>
 
 
@@ -129,13 +205,13 @@
 
       </div>
 
-      <div class="col-md-3"  style="">
+      <div class="col-md-3 sidebar-right "  style="">
 <br><br>
 <br>
 <br>
 <br>
 
-      <p id="bot" > <img data-toggle="popover" data-placement="top" title="" data-content="吃飽沒？" id="bot_img" style="width:150px;" src="emotion/normal_a.gif"></p>
+      <p id="bot" style="text-align:center" > <img data-toggle="popover" data-placement="top" title="" data-content="吃飽沒？" id="bot_img" style="width:150px;" src="emotion/normal_a.gif"></p>
       <div id="affdex_elements" ></div>
   
 
