@@ -15,7 +15,7 @@
     
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
    
-  <link href="https://getbootstrap.com/docs/4.1/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link href="https://getbootstrap.com/docs/4.1/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet"  crossorigin="anonymous">
 
   
    
@@ -289,6 +289,7 @@ h1 {
       var emo_file = ['happy','sad','disgust','frustration','anger','fear','surprised']
 
 
+
       var face_emotion=[];
       for (var i = 0; i < face_emotion.length; i++) {
       	face_emotion[i]=0
@@ -343,19 +344,46 @@ $("#reading").load("/class/c1.htm");
 function change_class (text) {
   $("#reading").load("/class/"+text+".htm");
 }
-
+ function jsonpCallback(data){
+     //   console.log(data)
+    }
 function bot_chat (text) {
 	// body...
-	  $("#bot_img").attr("data-content",talk[ Math.floor((Math.random() * talk.length)) ])
 
-	  $('#bot_img').popover('show')
+
+
+
+$.ajax({
+        url: "http://34.80.209.224/get?msg="+text+"?callback=?",
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback: "jsonpCallback",
+        success: function(json){
+          //jQuery會自動將結果傳入(如果有設定callback函式的話，兩者都會執行)
+          console.log(json.data);
+
+          $("#bot_img").attr("data-content", json.data);
+
+          $('#bot_img').popover('show')
+
+
+        },
+        error: function(){
+          alert('fail');
+        }
+    })
+
+
+
+	 // $("#bot_img").attr("data-content",talk[ Math.floor((Math.random() * talk.length)) ])
+ 
 
 
 }
 
 function bot_stat () {
 	// body...
-		  $('#bot_img').popover('hide')
+		 // $('#bot_img').popover('hide')
 
 	var top_i=0, top_val=0;
 	for (var i = 0; i <=6; i++) {
