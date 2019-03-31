@@ -7,225 +7,339 @@
   <link rel="icon" href="images/web_icon.png">
   <title>ATS情感式家教系統</title>
   <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style type="text/css">
+  
+.botText
+{
+  border: 1px black solid;
+  text-align: left;
+  padding: 5px;
+  width: fit-content;;
+  border-radius:5px;
+
+}
+.userText
+{
+    border: 0px gray solid;
+  text-align: right;
+  padding: 5px;
+  border-radius:5px;
+}
+#face_video_canvas
+{
+  width:100%;
+}
+
+</style>
+
+
+
   <link rel="stylesheet" href="assets/css/main.css" />
-  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+
   <!-- Script: Make my navbar transparent when the document is scrolled to top -->
   <script src="assets/js/navbar-ontop.js"></script>
   <!-- Script: Animated entrance -->
   <script src="assets/js/animate-in.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- UI scripts -->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    
+      <script type="text/javascript" src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
+    
+  
+
+<script type="text/javascript">
+    var url = location.href;  
+    var ary = url.split("/");  
+    var domain=ary[2]
+
+
+
+
+        function getBotResponse() {
+
+          var rawText = $("#textInput").val();
+
+
+          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+
+          $("#chatbox").append(userHtml);
+          $("#chatbox_wrap").animate({ scrollTop: $('#chatbox_wrap').prop("scrollHeight")}, 1000);
+
+          $("#textInput").val("");
+          $("#saying").append(userHtml);
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("https://ats.nutn.edu.tw:5000/get", { msg: rawText }).done(function(data) {
+
+
+            var ary = data.split("_#_");  
+            var bot_r_text=ary[0]
+            var user_text_emotion_by_py=ary[1]
+
+            var botHtml = '<p class="botText"><span>' + bot_r_text + '</span></p>';
+            $("#chatbox").append(botHtml);
+            $("#chatbox_wrap").animate({ scrollTop: $('#chatbox_wrap').prop("scrollHeight")}, 1000);
+
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+            console.log(bot_r_text)
+
+          });
+        }
+        $(function() {
+      $("#textInput").keypress(function(e) {
+            if(e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#buttonInput").click(function() {
+         
+          getBotResponse();
+        })
+});
+
+      
+
+</script>
 
 
 	</head>
 	<body class="is-preload">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- Wrapper -->
+      <div id="wrapper">
 
-				 <!-- Navbar -->
-  			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    			<div class="container">
-      				<div class="logo"><img src="images/logo.png"></div>
+         <!-- Navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container">
+              <div class="logo" style="width:50px"><img src="images/logo.png"></div>
 
-	      			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
-	      			<span class="navbar-toggler-icon"></span> 
-	      			</button>
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
+              <span class="navbar-toggler-icon"></span> 
+              </button>
 
-	      			<div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-		        		<ul class="navbar-nav mx-2">
-		        		  <li class="nav-item">
-				          <a class="btn nav-link" href="index.html">首頁</a>
-				            <a class="btn nav-link" href="#course">課程</a>
-				            <a class="btn nav-link" href="#achievement">成就</a>				         
-				            <a class="btn nav-link" href="#setting">設定</a>				          
-				            <a class="btn nav-link" href="#test">問卷</a>
-				          </li>
-				        </ul>
-		      		</div>
-		    	</div>
-		  	</nav>
+              <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
+                <ul class="navbar-nav mx-2">
+                  <li class="nav-item">
+                  <a class="btn nav-link" href="#">首頁</a>
+                    <a class="btn nav-link" href="#course">課程</a>
+                    <a class="btn nav-link" href="#achievement">關於</a>                 
+                    <!--
+                    <a class="btn nav-link" href="#setting">設定</a>                  
+                    <a class="btn nav-link" href="#test">問卷</a>
+                  -->
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </nav>
 
-				<!-- Header -->
-					<header id="header">
-						<div>
-							<div class="inner">
-								<h1>捕捉情感，學習更有溫度</h1>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#start" class="start">開始使用</a></li>
-							</ul>
-						</nav>
-					</header>
+        <!-- Header -->
+          <header id="header">
+            <div>
+              <div class="inner">
+                <h1>捕捉情感，學習更有溫度</h1>
+              </div>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#start" class="start">開始使用</a></li>
+              </ul>
+            </nav>
+          </header>
 
-				<!-- Main -->
-					<div id="main">
+        <!-- Main -->
+          <div id="main">
 
-						<!-- Intro -->
-							<article id="start">
-								<h2 class="major">數位音樂</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
+            <!-- Intro -->
+              <article id="start">
+                <div id="reading">
+                  
 
-									<div class="saying">
-								      <div class="mwt_border">
-										    <span class="arrow_b_int"></span>
-										    <span class="arrow_b_out"></span>
-										    吃飽沒?
-										</div>
-									  </div>
+                </div>
+
+<!--                <h2 class="major">數位音樂</h2>
+                <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+                <h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
+-->
+                  <div class="saying">
+                    <HR>與助教對話
+                      <div id="chatbox_wrap" class="mwt_border">
+                        <!--
+                        <span class="arrow_b_int"></span>
+                        <span class="arrow_b_out"></span>
+                      -->
+                        <div id="chatbox">
+                        
+                      </div>
+                    </div>
+                    </div>
 
 
-								      <div class="wrapper-chat">
+                      <div class="wrapper-chat">
 
-								      <div class="face" id="affdex_elements" style="">
-								      	<video id="face_video" autoplay=""></video>
-								      	<canvas id="face_video_canvas" width="200" height="160" style="display: none;">
-								      	</canvas>
-								      	<script type="text/javascript" src="./DD學習網_files/adapter-1.4.0.js.下載">
-								      	</script>
-								      </div>
+                      <div class="owl" style="">
+                      <p id="bot" style="text-align:center" > 
+                        <img data-toggle="popover" data-placement="top" title="" data-content="" id="bot_img" style="width:100%;" src="emotion/normal_a.gif">
+                      </p>
+                       </div>
+                       <div class="face" style="">
+                      <div class="" id="affdex_elements" style="">
+
+                      </div>
+                    </div>
 
 
-								      <div class="owl" style="">
-								      <p id="bot" style="text-align:center" > 
-								      	<img data-toggle="popover" data-placement="top" title="" data-content="吃飽沒？" id="bot_img" style="width:180px;" src="emotion/normal_a.gif">
-								      </p>
-								       </div>
 
-									</div>
-									<br>
-									<div class="chat">
-									  <input type="text" class="form-control" placeholder="請輸入你的想法..." id="input_text">
-									  <br>
-									  <form method="post" action="#">
-									  <ul class="actions">
-										<li><input type="submit" value="提交" class="primary" /></li>
-									</ul>
-									  </form>
-									  </div>
-									  	<br>
+                  </div>
+                  <br>
+                  <div id="userInput" class="chat">
+                    <input id="textInput" type="text" class="form-control" placeholder="請輸入你的想法..." id="textInput">
+                    <br>
+                   
+                    <ul class="actions">
+                    <li><input  id="buttonInput" type="button" value="提交" class="primary" /></li>
+                  </ul>
+                    
+                    </div>
+                      <br>
 
      
-								    <div class="row" style="display:none">
+                    <div class="row" style="display:none">
 
-								    <div class="col-md-12">
-								        <div style="height:30em;">
-								          <strong>EMOTION TRACKING RESULTS</strong>
-								          <div id="results" style="word-wrap:break-word;"></div>
-								        </div>
-								        <div>
-								          <strong>DETECTOR LOG MSGS</strong>
-								        </div>
-								        <div id="logs"><span>Clicked the start button</span><br><span>webcam denied</span><br></div>
-								      </div>
-								    </div>
+                    <div class="col-md-12">
+                        <div style="height:30em;">
+                          <strong>EMOTION TRACKING RESULTS</strong>
+                          <div id="results" style="word-wrap:break-word;"></div>
+                        </div>
+                        <div>
+                          <strong>DETECTOR LOG MSGS</strong>
+                        </div>
+                        <div id="logs"><span>Clicked the start button</span><br><span>webcam denied</span><br></div>
+                      </div>
+                    </div>
 
-							</article>
+              </article>
 
-						<!-- Course -->
-							<article id="course">
-								<h2 class="major">課程</h2>
-    	
-								<p class="class-btn btn-light" onclick="change_class(&#39;c1&#39;)">
-							        ch1<br>
-							      	文藝復興
-							      	<br>
-							    </p>
+            <!-- Course -->
+              <article id="course">
+                <h2 class="major">課程</h2>
+      
+                <p class="class-btn btn-light" onclick="change_class(&#39;c1&#39;)">
+                      ch1<br>
+                      文藝復興
+                      <br>
+                  </p>
 
-								<p class="class-btn btn-light" onclick="change_class(&#39;c2&#39;)">
-									ch2<br>
-							      	巴洛克時期
-							      	<br>
-							    </p>
-							      
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c3&#39;)">
-							      	ch3<br>
-							      	古典時期
-							      	<br>
-							    </p>
+                <p class="class-btn btn-light" onclick="change_class(&#39;c2&#39;)">
+                  ch2<br>
+                      巴洛克時期
+                      <br>
+                  </p>
+                    
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c3&#39;)">
+                      ch3<br>
+                      古典時期
+                      <br>
+                  </p>
 
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c4&#39;)">
-							  		ch4+5<br>
-							        浪漫時期
-							        <br>
-							    </p>
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c4&#39;)">
+                    ch4+5<br>
+                      浪漫時期
+                      <br>
+                  </p>
 
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c7&#39;)">
-							  		ch7+8+9<br>
-							        現代音樂
-							        <br>
-							    </p>
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c7&#39;)">
+                    ch7+8+9<br>
+                      現代音樂
+                      <br>
+                  </p>
 
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c10&#39;)">
-							    	ch10<br>
-							        電影音樂
-							        <br>
-							    </p> 
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c10&#39;)">
+                    ch10<br>
+                      電影音樂
+                      <br>
+                  </p> 
 
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c11&#39;)">
-							    	ch11<br>
-							        新世紀音樂
-							        <br>
-							    </p>
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c11&#39;)">
+                    ch11<br>
+                      新世紀音樂
+                      <br>
+                  </p>
 
-							    <p class="class-btn btn-light" onclick="change_class(&#39;c12&#39;)">
-							    	ch12+13+14<br>
-							        數位音樂
-							        <br>
-							    </p>
+                  <p class="class-btn btn-light" onclick="change_class(&#39;c12&#39;)">
+                    ch12+13+14<br>
+                      數位音樂
+                      <br>
+                  </p>
 
-							</article>
-
-
-						<!-- Achievement -->
-							<article id="achievement">
-								<h2 class="major">成就</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
-							</article>
-
-						<!-- About -->
-							<article id="setting">
-								<h2 class="major">設定</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
-							</article>
-
-						<!-- Contact -->
-							<article id="test">
-								<h2 class="major">問卷</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">姓名</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">信箱</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">有話想說</label>
-											<textarea name="message" id="message" rows="4"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="提交" class="primary" /></li>
-										<li><input type="reset" value="重置" /></li>
-									</ul>
-								</form>
-							</article>
+              </article>
 
 
-					</div>
+            <!-- Achievement -->
+              <article id="achievement">
+                <h2 class="major">關於</h2>
+                製作團隊
+                <br>指導老師 林豪鏘
+                <br><br>團隊成員 
+                <br>馬毓君 陳凌漢 張小均 蘇倫可 彭麒安 蔡碧芬
+                <br>
+                <p>國立臺南大學數位藝術與互動設計實驗室
+                </p>
+                
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">DDLAB</a>.</p>
-					</footer>
 
-			</div>
+
+
+                
+              </article>
+
+            <!-- About -->
+              <article id="setting">
+                <h2 class="major">設定</h2>
+                <span class="image main"><img src="images/pic03.jpg" alt="" /></span>
+                <p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
+              </article>
+
+            <!-- Contact -->
+              <article id="test">
+                <h2 class="major">問卷</h2>
+                <form method="post" action="#">
+                  <div class="fields">
+                    <div class="field half">
+                      <label for="name">姓名</label>
+                      <input type="text" name="name" id="name" />
+                    </div>
+                    <div class="field half">
+                      <label for="email">信箱</label>
+                      <input type="text" name="email" id="email" />
+                    </div>
+                    <div class="field">
+                      <label for="message">有話想說</label>
+                      <textarea name="message" id="message" rows="4"></textarea>
+                    </div>
+                  </div>
+                  <ul class="actions">
+                    <li><input type="submit" value="提交" class="primary" /></li>
+                    <li><input type="reset" value="重置" /></li>
+                  </ul>
+                </form>
+              </article>
+
+
+          </div>
+
+        <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">DDLAB</a>.</p>
+          </footer>
+
+      </div>
+ 
 
 		<!-- BG -->
 			<div id="bg"></div>
@@ -241,7 +355,291 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 			<!-- Script: Smooth scrolling between anchors in the same page -->
-			<script src="js/smooth-scroll.js" style=""></script>
+			<!--<script src="js/smooth-scroll.js" style=""></script>-->
+  <!-- tf -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9"></script>
+  <!-- utils -->
+  <script src="js/tracking-min.js"></script>
+  <script src="js/face-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.0/sweetalert2.all.min.js"></script>
 
+
+
+
+
+
+<script type="text/javascript">
+
+
+      // SDK Needs to create video and canvas nodes in the DOM in order to function
+      // Here we are adding those nodes a predefined div.
+      var divRoot = $("#affdex_elements")[0];
+      var width = 300;
+      var height = 230;
+      var talk = ['吃飽未？','我也這麼覺得','真的嗎？','你確定？','也是','嗯嗯','...','呵呵','喵喵喵喵','？？？']
+      var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
+
+      var emo_file = ['happy','sad','disgust','frustration','anger','fear','surprised']
+
+
+
+      var face_emotion=[];
+      for (var i = 0; i < face_emotion.length; i++) {
+        face_emotion[i]=0
+      };
+      //Construct a CameraDetector and specify the image width / height and face detector mode.
+      var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
+
+      //Enable detection of all Expressions, Emotions and Emojis classifiers.
+      detector.detectAllEmotions();
+      detector.detectAllExpressions();
+      detector.detectAllEmojis();
+      detector.detectAllAppearance();
+
+      //Add a callback to notify when the detector is initialized and ready for runing.
+      detector.addEventListener("onInitializeSuccess", function() {
+        log('#logs', "The detector reports initialized");
+        //Display canvas instead of video feed because we want to draw the feature points on it
+        $("#face_video_canvas").css("display", "block");
+        $("#face_video").css("display", "none");
+      });
+
+      // A $( document ).ready() block.
+$( document ).ready(  function() {
+
+            var botHtml = '<p class="botText"><span>' + "嗨~" + '</span></p>';
+            $("#chatbox").append(botHtml);
+
+
+  $("#reading").load("./class/art/01_c.htm");
+
+    console.log( "ready!" );
+    onStart()
+    setInterval(bot_stat, 3000);
+
+    $('#input_text').on('keydown', function(e) {
+    if (e.which == 13) {
+      console.log($('#input_text').val())
+      bot_chat($('#input_text').val())
+      $('#input_text').val("")
+        e.preventDefault();
+    }
+});
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+
+///
+$("#reading").load("class/c1.htm");
+
+///
+
+});
+
+function change_class (text) {
+  $("#reading").load("class/"+text+".htm");
+}
+ function jsonpCallback(data){
+     //   console.log(data)
+    }
+function bot_chat (text) {
+  // body...
+
+
+
+
+$.ajax({
+        url: "http://34.80.209.224/get?msg="+text+"?callback=?",
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback: "jsonpCallback",
+        success: function(json){
+          //jQuery會自動將結果傳入(如果有設定callback函式的話，兩者都會執行)
+          console.log(json.data);
+
+          $("#bot_img").attr("data-content", json.data);
+
+          $('#bot_img').popover('show')
+
+
+        },
+        error: function(){
+          alert('fail');
+        }
+    })
+
+
+
+   // $("#bot_img").attr("data-content",talk[ Math.floor((Math.random() * talk.length)) ])
+ 
+
+
+}
+
+function bot_stat () {
+  // body...
+     // $('#bot_img').popover('hide')
+
+  var top_i=0, top_val=0;
+  for (var i = 0; i <=6; i++) {
+    if(face_emotion[i]>Math.abs(top_val))
+    {
+      top_val = face_emotion[i]
+      top_i=i
+    }
+
+
+  };
+  if(top_val==0) //沒臉部表情
+  {
+    if (  Math.floor((Math.random() * 2) +1)==1) 
+    {
+    $("#bot_img").attr("src","emotion/"+'normal_a'+".gif")
+    }
+    else
+    {
+          $("#bot_img").attr("src","emotion/"+'normal_b'+".gif")
+    }
+  }
+  else{
+    $("#bot_img").attr("src","emotion/"+emo_file[ top_i ]+".gif")
+  }
+  console.log(emo_file[ top_i ])
+}
+      function log(node_name, msg) {
+        $(node_name).append("<span>" + msg + "</span><br />")
+      }
+
+      //function executes when Start button is pushed.
+      function onStart() {
+        if (detector && !detector.isRunning) {
+          $("#logs").html("");
+          detector.start();
+        }
+        log('#logs', "Clicked the start button");
+      }
+
+      //function executes when the Stop button is pushed.
+      function onStop() {
+        log('#logs', "Clicked the stop button");
+        if (detector && detector.isRunning) {
+          detector.removeEventListener();
+          detector.stop();
+        }
+      };
+
+      //function executes when the Reset button is pushed.
+      function onReset() {
+        log('#logs', "Clicked the reset button");
+        if (detector && detector.isRunning) {
+          detector.reset();
+
+          $('#results').html("");
+        }
+      };
+
+      //Add a callback to notify when camera access is allowed
+      detector.addEventListener("onWebcamConnectSuccess", function() {
+        log('#logs', "Webcam access allowed");
+      });
+
+      //Add a callback to notify when camera access is denied
+      detector.addEventListener("onWebcamConnectFailure", function() {
+        log('#logs', "webcam denied");
+        console.log("Webcam access denied");
+      });
+
+      //Add a callback to notify when detector is stopped
+      detector.addEventListener("onStopSuccess", function() {
+        log('#logs', "The detector reports stopped");
+        $("#results").html("");
+      });
+
+      //Add a callback to receive the results from processing an image.
+      //The faces object contains the list of the faces detected in an image.
+      //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
+      detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
+        $('#results').html("");
+        log('#results', "Timestamp: " + timestamp.toFixed(2));
+        log('#results', "Number of faces found: " + faces.length);
+        if (faces.length > 0) {
+
+          var ii=0;
+
+          var val = faces[0].emotions['joy']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['sadness']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['disgust']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['contempt']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['anger']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['fear']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['surprise']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['valence']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+          var val = faces[0].emotions['engagement']
+          face_emotion[ii++]=val.toFixed ? Number(val.toFixed(0)) : val;
+
+
+
+          log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
+          log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
+            return val.toFixed ? Number(val.toFixed(0)) : val;
+          }));
+          log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
+            return val.toFixed ? Number(val.toFixed(0)) : val;
+          }));
+          log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
+          drawFeaturePoints(image, faces[0].featurePoints);
+        }
+      });
+
+      //Draw the detected facial feature points on the image
+      function drawFeaturePoints(img, featurePoints) {
+        var contxt = $('#face_video_canvas')[0].getContext('2d');
+
+        var hRatio = contxt.canvas.width / img.width;
+        var vRatio = contxt.canvas.height / img.height;
+        var ratio = Math.min(hRatio, vRatio);
+
+        contxt.strokeStyle = "#FFFFFF";
+        for (var id in featurePoints) {
+          contxt.beginPath();
+          contxt.arc(featurePoints[id].x,
+            featurePoints[id].y, 2, 0, 2 * Math.PI);
+          contxt.stroke();
+
+        }
+      }
+
+
+
+
+
+
+
+</script>
+
+
+
+
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "None"
+    }], "*")
+  }
+</script>
 	</body>
 </html>
+

@@ -1,4 +1,3 @@
-@import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
 
 html, body, div, span, applet, object,
@@ -165,7 +164,6 @@ input, select, textarea {
 
 	p {
 		margin: 0 0 2rem 0;
-		font-size: 100px;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -1582,24 +1580,25 @@ button.close {
 }
 
 .mwt_border{
-    width:360px;
-    height:90px;
-    text-align:center;
-    line-height:90px;
+    width:100%;
+    height:200px;
+    line-height:100%;
     font-size: 20px;
     background:#fff;
     color:#000;
     position:relative;
     border: solid 1px #333;
     margin:0px;
-    padding:0px;
+    padding:25px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 @media screen and (max-width: 1680px) {
 
 			.mwt_border{
-				width:540px;
-    			height: 90px;
+					width:100%;
+    			height: 200px;
 			
 			}
 
@@ -1608,8 +1607,8 @@ button.close {
 		@media screen and (max-width: 700px) {
 
 			.mwt_border{
-				width:450px;
-    			height: 90px;
+				width:100%;
+    			height: 200px;
 			
 			}
 
@@ -1618,8 +1617,8 @@ button.close {
 		@media screen and (max-width: 480px) {
 
 			.mwt_border{
-				width:360px;
-    			height:90px;
+					width:100%;
+    			height:200px;
 			
 			}
 
@@ -1648,11 +1647,11 @@ button.close {
 }
 
 .face {
-  grid-column: 1 / 2;
+  grid-column: 2 / 2;
   grid-row: 2;
 }
 .owl {
-  grid-column: 2 / 2;
+  grid-column: 1 / 2;
   grid-row: 2;
 }
 
@@ -1862,8 +1861,8 @@ input, select, textarea {
 	}
 
 	p {
-		margin: 0 0 2rem 0;
-		font-size: 14px;
+		margin: 0 0 0 0;
+	
 	}
 
 	h1 {
@@ -2328,7 +2327,6 @@ input, select, textarea {
 		.logo img {
 			float: left;
 	width: auto;
-	height: 70px;
 		}
 
 		.image.left, .image.right {
@@ -3383,8 +3381,8 @@ button.close {
 
 .navbar-toggler-icon {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1em;
+  height: 1em;
   vertical-align: middle;
   content: "";
   background: no-repeat center center;
@@ -3808,14 +3806,14 @@ button.bg-dark:focus {
 /* Face Video */
 video
     {
-    	width:200px;
+    	width:100%;
     	height: 160px;
     }
 
 		@media screen and (max-width: 1680px) {
 
 			video{
-				width:300px;
+    	width:100%;
     			height: 200px;
 			
 			}
@@ -3825,7 +3823,7 @@ video
 		@media screen and (max-width: 736px) {
 
 			video{
-				width:250px;
+    	width:100%;
     			height: 180px;
 			
 			}
@@ -3835,7 +3833,7 @@ video
 		@media screen and (max-width: 480px) {
 
 			video{
-				width:200px;
+    	width:100%;
     			height: 160px;
 			
 			}
@@ -3844,10 +3842,14 @@ video
 
     #face_video
     {
-      border:5px solid white
+      border:5px solid white;
+      width:100%;
+      height: auto;
     }
 
     #face_video_canvas
     {
-      border:5px solid white
+      width:100%;
+      border:5px solid white;
+      height: auto;
     }
