@@ -1580,16 +1580,16 @@ button.close {
 }
 
 .mwt_border{
-    width:100%;
-    height:200px;
-    line-height:100%;
+    width: 100%;
+    height: 200px;
+    line-height: 100%;
     font-size: 20px;
-    background:#fff;
-    color:#000;
-    position:relative;
-    border: solid 1px #333;
-    margin:0px;
-    padding:25px;
+    background: #181d22;
+    color: #fff;
+    position: relative;
+    border: solid 1px #fff;
+    margin: 0px;
+    padding: 25px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -1772,7 +1772,7 @@ input, select, textarea {
 	@media screen and (max-width: 480px) {
 
 		html, body {
-			min-width: 320px;
+			min-width: 100%;
 		}
 
 	}
@@ -3203,7 +3203,7 @@ button.close {
 			}
 
 			#main article .close {
-				display: block;
+				display: none;
 				position: absolute;
 				top: 0;
 				right: 0;
@@ -3663,7 +3663,9 @@ fieldset:disabled a.btn {
 .btn-light {
   color: #12223e;
   background-color: #f3f3f3;
-  border-color: #f3f3f3; }
+  border-color: #f3f3f3; 
+    margin: 2px;
+}
   .btn-light:hover {
     color: #12223e;
     background-color: #e0e0e0;
@@ -3844,12 +3846,12 @@ video
     {
       border:5px solid white;
       width:100%;
-      height: auto;
+      
     }
 
     #face_video_canvas
     {
       width:100%;
       border:5px solid white;
-      height: auto;
+   
     }
