@@ -1575,21 +1575,21 @@ button.close {
 	.wrapper-chat{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
-  grid-auto-rows: minmax(30px, auto);
+  grid-gap: 0px;
+  grid-auto-rows: minmax(2px, auto);
 }
 
 .mwt_border{
     width: 100%;
     height: 200px;
     line-height: 100%;
-    font-size: 20px;
-    background: #181d22;
-    color: #fff;
+    font-size: 100%;
+    border-radius: 5px;
+
     position: relative;
-    border: solid 1px #fff;
+    border: solid 1px #132031;
     margin: 0px;
-    padding: 25px;
+    padding: 3px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -1598,7 +1598,7 @@ button.close {
 
 			.mwt_border{
 					width:100%;
-    			height: 200px;
+    			height:50px;
 			
 			}
 
@@ -1608,7 +1608,7 @@ button.close {
 
 			.mwt_border{
 				width:100%;
-    			height: 200px;
+    			height:50px;
 			
 			}
 
@@ -1618,7 +1618,7 @@ button.close {
 
 			.mwt_border{
 					width:100%;
-    			height:200px;
+    			height:50px;
 			
 			}
 
@@ -1649,6 +1649,9 @@ button.close {
 .face {
   grid-column: 2 / 2;
   grid-row: 2;
+      text-align: center;
+    vertical-align: middle;
+    padding: 10px;
 }
 .owl {
   grid-column: 1 / 2;
@@ -1831,7 +1834,7 @@ input, select, textarea {
 		}
 
 	body, input, select, textarea {
-		color: #ffffff;
+		color: #000000;
 		font-family: "Microsoft JhengHei", sans-serif;
 		font-size: 1rem;
 		line-height: 1.65;
@@ -1875,7 +1878,7 @@ input, select, textarea {
 	}
 
 		h2, h3, h4, h5, h6 {
-		color: #ffffff;
+		color: #000000;
 		line-height: 1.2;
 		margin: 0 0 1rem 0;
 		text-transform: uppercase;
@@ -1990,7 +1993,7 @@ input, select, textarea {
 
 	hr {
 		border: 0;
-		border-bottom: solid 1px #ffffff;
+		border-bottom: solid 1px #000000;
 		margin: 2.75rem 0;
 	}
 
@@ -2107,7 +2110,7 @@ input, select, textarea {
 		transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 		background-color: transparent;
 		border-radius: 4px;
-		border: solid 1px #ffffff;
+		border: solid 1px #132031;
 		color: inherit;
 		display: block;
 		outline: 0;
@@ -2132,7 +2135,7 @@ input, select, textarea {
 		select:focus,
 		textarea:focus {
 			background: rgba(255, 255, 255, 0.075);
-			border-color: #ffffff;
+			border-color: #132031; 
 			box-shadow: 0 0 0 1px #ffffff;
 		}
 
@@ -2255,27 +2258,27 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(0, 0, 0, 0.5) !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(0, 0, 0, 0.5) !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(0, 0, 0, 0.5) !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(0, 0, 0, 0.5) !important;
 		opacity: 1.0;
 	}
 
 	.formerize-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(0, 0, 0, 0.5) !important;
 		opacity: 1.0;
 	}
 
@@ -2679,8 +2682,8 @@ input, select, textarea {
 		background-color: transparent;
 		border-radius: 4px;
 		border: 0;
-		box-shadow: inset 0 0 0 1px #ffffff;
-		color: #ffffff !important;
+		box-shadow: inset 0 0 0 1px #000000;
+		color: #000000 !important;
 		cursor: pointer;
 		display: inline-block;
 		font-size: 0.8rem;
@@ -3188,7 +3191,7 @@ button.close {
 			position: relative;
 			width: 40rem;
 			max-width: 100%;
-			background-color: rgba(27, 31, 34, 0.85);
+			background-color: rgba(255, 255, 255, 0.85);
 			border-radius: 4px;
 			opacity: 0;
 		}
@@ -3199,7 +3202,7 @@ button.close {
 				-ms-transform: translateY(0);
 				transform: translateY(0);
 				opacity: 1;
-				margin-top: 5rem ;
+				margin-top: 0.3rem ;
 			}
 
 			#main article .close {
@@ -3262,7 +3265,7 @@ button.close {
 		@media screen and (max-width: 480px) {
 
 			#main article {
-				padding: 3rem 1.5rem 0.5rem 1.5rem ;
+				padding: 3.5rem 1.5rem 0.5rem 1.5rem ;
 				margin-top: 5rem ;
 			}
 
@@ -3313,7 +3316,7 @@ button.close {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 0.75rem 1.5rem; }
+  padding: 0rem 1rem; }
   .navbar > .container,
   .navbar > .container-fluid {
     display: flex;
@@ -3584,7 +3587,7 @@ button.close {
   user-select: none;
   border: 0.5px solid transparent;
   padding: 0.2rem 0.7rem;
-  font-size: 24px;
+  font-size: 100%;
   font-weight: bold;
   line-height: 1.8;
   border-radius: 0.75rem;
@@ -3731,7 +3734,7 @@ input[type="button"].btn-block {
   position: relative; }  
 
 .bg-dark {
-  background-color: #363636 ; 
+  background-color: #132031 ; 
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -3792,7 +3795,7 @@ button.bg-dark:focus {
   transition: background-color .5s ease-out; }
 
 .navbar-ontop {
-  background-color: transparent ; }
+  background-color: #132031 ; }
 
 
  /* Placeholders */
@@ -3845,13 +3848,15 @@ video
     #face_video
     {
       border:5px solid white;
-      width:100%;
+      width:100px;
+      height: 100px;
       
     }
 
     #face_video_canvas
     {
-      width:100%;
+width:100px;
+height: 100px;     
       border:5px solid white;
    
     }

@@ -13,38 +13,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <style type="text/css">
-
-    #overlay {
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                -o-transform : scaleX(-1);
-                -webkit-transform : scaleX(-1);
-                transform : scaleX(-1);
-                -ms-filter : fliph; /*IE*/
-                filter : fliph; /*IE*/
-                opacity: 0;
-
-                        }
-
-            #videoel {
-                -o-transform : scaleX(-1);
-                -webkit-transform : scaleX(-1);
-                transform : scaleX(-1);
-                -ms-filter : fliph; /*IE*/
-                filter : fliph; /*IE*/
-
-                
-            }
-
-
-
-
-
         .botText {
-            border: 0px white solid;
+            border: 1px white solid;
             text-align: left;
-            padding: 1px;
+            padding: 10px;
             width: fit-content;
             border-radius: 30px;
         }
@@ -163,7 +135,7 @@
                     <ul class="navbar-nav mx-2">
                         <li class="nav-item">
                             <a class="btn nav-link" href="#start">首頁</a>
-                         <!--   <a class="btn nav-link" href="#course">課程</a> -->
+                            <a class="btn nav-link" href="#course">課程</a>
                             <a class="btn nav-link" href="#achievement">關於</a>
                             <!--
                     <a class="btn nav-link" href="#setting">設定</a>                  
@@ -179,12 +151,12 @@
         <header id="header">
             <div>
                 <div class="inner">
-                    <h1>捕捉情感<br>學習更有溫度</h1>
+                    <h1>捕捉情感，學習更有溫度</h1>
                 </div>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#start" class="start" style="color:white">開始使用</a></li>
+                    <li><a href="#start" class="start">開始使用</a></li>
                 </ul>
             </nav>
         </header>
@@ -195,11 +167,7 @@
             <!-- Intro -->
             <article id="start">
                 <div id="reading">
-                    <!--
                     <iframe id="read_iframe" onLoad="reload_ch();" src="./class/music/1_1.htm" width="100%" height="500em" name="search_iframe"></iframe>
-                -->
-
-                <iframe width="100%" height="200" src="https://www.youtube.com/embed/jicJx_sTgS8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                 </div>
 
@@ -207,16 +175,15 @@
                 <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
                 <h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
 -->
-                <div class="saying" style="">
+                <div class="saying">
 
-                   與助教對話
+                    <HR>與助教對話
                     <div id="chatbox_wrap" class="mwt_border">
                         <!--
                         <span class="arrow_b_int"></span>
                         <span class="arrow_b_out"></span>
                       -->
-
-                        <div id="chatbox" >
+                        <div id="chatbox">
 
                         </div>
                     </div>
@@ -231,27 +198,13 @@
                         </p>
                     </div>
                     <div class="face" style="">
-                       <!-- <div class="" id="affdex_elements" style=""> -->
-                        
-    <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
-                </video>
-                <canvas id="overlay" width="400" height="300"></canvas>
-         
-       
-       <!--     <div id="emotion_container">
-                <div id="emotion_icons">
-                    <img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
-                    <img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
-                    <img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
-                    <img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
-                </div> -->
-       
- 
+                        <div class="" id="affdex_elements" style="">
 
-                     
+                        </div>
                     </div>
 
                 </div>
+                <br>
                 <div id="userInput" class="chat" style="display:flex; flex-direction:row;">
                     <input id="textInput" type="text" style=" flex-grow:2;" class="form-control" placeholder="請輸入你的想法..." id="textInput">
                     <button id="buttonInput" type="button" value="➤" class="primary">➤</button>
@@ -274,26 +227,12 @@
                         </div>
                     </div>
                 </div>
-
-                
                 <HR>
-       
-       <!--
-         <div id='emotion_chart' style=""></div>
-       
-            <div id="controls">
-             <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input> 
-            </div>  -->
+
                 <center>
 
-                    <!-- <button id="next_class_btn" onclick="change_class(0)">下一章</button> -->
+                    <button id="next_class_btn" onclick="change_class(0)">下一章</button>
                 </center>
-
-            <br>
-            <br>
-            <br>
-            <br>
-
             </article>
 
             <!-- Course -->
@@ -460,7 +399,7 @@
                 <br>團隊成員
                 <br>馬毓君 陳凌漢 張小均 蘇倫可 彭麒安
                 <br>蔡碧芬 林孟增 陳怡蓁 林語瑄 余玳均 
-                <br>蔡孟君 黃琮駿 劉欣蘭 郭文鱗
+                <br>蔡孟君 黃琮駿 劉欣蘭
                 <br>
                 <br>
                 <hr>
@@ -470,7 +409,7 @@
 
                 <hr>
                 <center>
-                <img src="ddlab_logo_black.png" width="250px" />
+                <img src="ddlab_logo_white.png" width="250px" />
                 </center>
                 <p><!--國立臺南大學數位藝術與互動設計實驗室-->
                 </p>
@@ -619,8 +558,8 @@
 
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
              // some code..
-                     var width = 500
-                      var height = 500
+                     var width = 360
+                      var height = 640
 
             }
             else
@@ -632,7 +571,7 @@
 
         
         var talk = ['吃飽未？', '嗨嗨', '今天過得好嗎？', '心情如何？', '喜歡上面的教材嗎？', '今天天氣如何？', '這很簡單吧？', '呵呵...', '喵喵喵喵', '哈囉你好哇！','現在的你有什麼感覺？']
-     //   var faceMode = affdex.FaceDetectorMode.SMALL_FACES*;
+        var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
 
         var level = 2 // 3難2中1易
         var book = "music" // art or music
@@ -641,31 +580,31 @@
         var man_face_emo = 7; // 7為面無表情
         var man_text_emo = 0;
 
-        var emo_file = ['angry', 'sad', 'surprised', 'happy','normal']
+        var emo_file = ['happy', 'sad', 'disgust', 'frustration', 'anger', 'fear', 'surprised', 'normal']
 
         var face_emotion = [];
         for (var i = 0; i < face_emotion.length; i++) {
             face_emotion[i] = 0
         };
         //Construct a CameraDetector and specify the image width / height and face detector mode.
-    //    var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
+        var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
 
         //Enable detection of all Expressions, Emotions and Emojis classifiers.
-     //   detector.detectAllEmotions();
+        detector.detectAllEmotions();
       //  detector.detectAllExpressions();
         //detector.detectAllEmojis();
        // detector.detectAllAppearance();
 
         //Add a callback to notify when the detector is initialized and ready for runing.
-     /*   detector.addEventListener("onInitializeSuccess", function() {
-       //     log('#logs', "The detector reports initialized");
+        detector.addEventListener("onInitializeSuccess", function() {
+            log('#logs', "The detector reports initialized");
             //Display canvas instead of video feed because we want to draw the feature points on it
-      //      $("#face_video_canvas").css("display", "inline");
+            $("#face_video_canvas").css("display", "block");
             $("#face_video").css("display", "none");
          //   $("#face_video_canvas").attr("height",$("#face_video").innerHeight())
            // $("#face_video_canvas").attr("width",$("#face_video").innerWidth())
    
-        });*/
+        });
 
         // A $( document ).ready() block.
         $(document).ready(function() {
@@ -684,11 +623,10 @@
             $('.close').click(function(e) {
                 location.href = "#start"
             });
-//            onStart()
-startVideo()
+            onStart()
 
             //每_秒偵測一次臉部表情
-            setInterval(bot_stat, 5000);
+            setInterval(bot_stat, 6000);
 
 
             $('#input_text').on('keydown', function(e) {
@@ -724,19 +662,16 @@ startVideo()
             var top_i = 0,
                 top_val = 0;
             for (var i = 0; i <= 6; i++) {
-                if(face_emotion[i]>0.4)
-       {         if (face_emotion[i] > Math.abs(top_val)) {
+                if (face_emotion[i] > Math.abs(top_val)) {
                     top_val = face_emotion[i]
                     top_i = i
                 }
-            }
 
             };
             man_face_emo = top_i
-
             if (top_val == 0) //沒臉部表情
             {
-                man_face_emo = 4;
+                man_face_emo = 7;
                 if (Math.floor((Math.random() * 2) + 1) == 1) {
                     $("#bot_img").attr("src", "emotion/" + 'normal_a' + ".gif")
                 } else {
@@ -779,7 +714,7 @@ startVideo()
                 $('#results').html("");
             }
         };
-/*
+
         //Add a callback to notify when camera access is allowed
         detector.addEventListener("onWebcamConnectSuccess", function() {
             log('#logs', "Webcam access allowed");
@@ -809,13 +744,13 @@ startVideo()
 
                 var ii = 0;
 
-                var val = faces[0].emotions['angry']
+                var val = faces[0].emotions['joy']
                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['sad']
+                var val = faces[0].emotions['sadness']
                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['surprise']
+                var val = faces[0].emotions['disgust']
                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['happy']
+                var val = faces[0].emotions['contempt']
                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
                 var val = faces[0].emotions['anger']
                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
@@ -836,10 +771,10 @@ startVideo()
                     return val.toFixed ? Number(val.toFixed(0)) : val;
                 }));
                 log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
-                drawFeaturePoints(image, faces[0].featurePoints);
+           //     drawFeaturePoints(image, faces[0].featurePoints);
             }
         });
-*/
+
         //Draw the detected facial feature points on the image
         function drawFeaturePoints(img, featurePoints) {
             var contxt = $('#face_video_canvas')[0].getContext('2d');
@@ -868,227 +803,6 @@ startVideo()
             }], "*")
         }
     </script>
-
-
-
-    <body>
-        <script src="./js/libs/utils.js"></script>
-        <script src="./build/clmtrackr.js"></script>
-        <script src="./models/model_pca_20_svm.js"></script>
-        <script src="./js/libs/Stats.js"></script>
-        <script src="./js/libs/d3.min.js"></script>
-        <script src="./js/emotion_classifier.js"></script>
-        <script src="./js/emotionmodel.js"></script>
-    
-            <script>
-                var vid = document.getElementById('videoel');
-                var vid_width = vid.width;
-                var vid_height = vid.height;
-                var overlay = document.getElementById('overlay');
-                var overlayCC = overlay.getContext('2d');
-
-                /********** check and set up video/webcam **********/
-
-                function enablestart() {
-            //        var startbutton = document.getElementById('startbutton');
-                 //   startbutton.value = "start";
-                //    startbutton.disabled = null;
-                }
-
-                function adjustVideoProportions() {
-                    // resize overlay and video if proportions are different
-                    // keep same height, just change width
-                    var proportion = vid.videoWidth/vid.videoHeight;
-                    vid_width = Math.round(vid_height * proportion);
-                    vid.width = vid_width;
-                
-                 //  overlay.width = vid_width;
-                }
-
-                function gumSuccess( stream ) {
-                    // add camera stream if getUserMedia succeeded
-                    if ("srcObject" in vid) {
-                        vid.srcObject = stream;
-                    } else {
-                        vid.src = (window.URL && window.URL.createObjectURL(stream));
-                    }
-                    vid.onloadedmetadata = function() {
-                        adjustVideoProportions();
-                        vid.play();
-                    }
-                    vid.onresize = function() {
-                        adjustVideoProportions();
-                        if (trackingStarted) {
-                            ctrack.stop();
-                            ctrack.reset();
-                            ctrack.start(vid);
-                        }
-                    }
-                }
-
-                function gumFail() {
-                    alert("There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
-                }
-
-                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-                window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
-
-                // check for camerasupport
-                if (navigator.mediaDevices) {
-                    navigator.mediaDevices.getUserMedia({video : true}).then(gumSuccess).catch(gumFail);
-                } else if (navigator.getUserMedia) {
-                    navigator.getUserMedia({video : true}, gumSuccess, gumFail);
-                } else {
-                    alert("This demo depends on getUserMedia, which your browser does not seem to support. :(");
-                }
-
-                vid.addEventListener('canplay', enablestart, false);
-
-                /*********** setup of emotion detection *************/
-
-                // set eigenvector 9 and 11 to not be regularized. This is to better detect motion of the eyebrows
-                pModel.shapeModel.nonRegularizedVectors.push(9);
-                pModel.shapeModel.nonRegularizedVectors.push(11);
-
-                var ctrack = new clm.tracker({useWebGL : true});
-                ctrack.init(pModel);
-                var trackingStarted = false;
-
-                function startVideo() {
-                    // start video
-                    vid.play();
-                    // start tracking
-                    ctrack.start(vid);
-                    trackingStarted = true;
-                    // start loop to draw face
-                    drawLoop();
-                }
-
-                function drawLoop() {
-                    requestAnimFrame(drawLoop);
-                    overlayCC.clearRect(0, 0, vid_width, vid_height);
-                    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
-                    if (ctrack.getCurrentPosition()) {
-                        ctrack.draw(overlay);
-                    }
-                    var cp = ctrack.getCurrentParameters();
-
-                    var er = ec.meanPredict(cp);
-                    if (er) {
-                        updateData(er);
-
-                        for (var i = 0;i < er.length;i++) {
-                            face_emotion[i]=er[i].value
-                           //  console.log(er)
-                            if (er[i].value > 0.4) {
-                                //     console.log(er)
-
-                              //  document.getElementById('icon'+(i+1)).style.visibility = 'visible';
-                            } else {
-                              //  document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
-                            }
-                        }
-                    }
-                }
-
-                delete emotionModel['disgusted'];
-                delete emotionModel['fear'];
-                var ec = new emotionClassifier();
-                ec.init(emotionModel);
-                var emotionData = ec.getBlank();
-
-                /************ d3 code for barchart *****************/
-
-
-                var margin = {top : 20, right : 20, bottom : 10, left : 40},
-                    width = 400 - margin.left - margin.right,
-                    height = 100 - margin.top - margin.bottom;
-
-                var barWidth = 30;
-
-                var formatPercent = d3.format(".0%");
-
-                var x = d3.scale.linear()
-                    .domain([0, ec.getEmotions().length]).range([margin.left, width+margin.left]);
-
-                var y = d3.scale.linear()
-                    .domain([0,1]).range([0, height]);
-
-                var svg = d3.select("#emotion_chart").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-/*
-                svg.selectAll("rect").
-                    data(emotionData).
-                    enter().
-                    append("svg:rect").
-                    attr("x", function(datum, index) { return x(index); }).
-                    attr("y", function(datum) { return height - y(datum.value); }).
-                    attr("height", function(datum) { return y(datum.value); }).
-                    attr("width", barWidth).
-                    attr("fill", "#2d578b");
-
-                svg.selectAll("text.labels").
-                    data(emotionData).
-                    enter().
-                    append("svg:text").
-                    attr("x", function(datum, index) { return x(index) + barWidth; }).
-                    attr("y", function(datum) { return height - y(datum.value); }).
-                    attr("dx", -barWidth/2).
-                    attr("dy", "1.2em").
-                    attr("text-anchor", "middle").
-                    text(function(datum) { return datum.value;}).
-                    attr("fill", "white").
-                    attr("class", "labels");
-
-                svg.selectAll("text.yAxis").
-                    data(emotionData).
-                    enter().append("svg:text").
-                    attr("x", function(datum, index) { return x(index) + barWidth; }).
-                    attr("y", height).
-                    attr("dx", -barWidth/2).
-                    attr("text-anchor", "middle").
-                    attr("style", "font-size: 12").
-                    text(function(datum) { return datum.emotion;}).
-                    attr("transform", "translate(0, 18)").
-                    attr("class", "yAxis");
-*/
-                function updateData(data) {
-                    // update
-                    var rects = svg.selectAll("rect")
-                        .data(data)
-                        .attr("y", function(datum) { return height - y(datum.value); })
-                        .attr("height", function(datum) { return y(datum.value); });
-                    var texts = svg.selectAll("text.labels")
-                        .data(data)
-                        .attr("y", function(datum) { return height - y(datum.value); })
-                        .text(function(datum) { return datum.value.toFixed(1);});
-
-                    // enter
-                    rects.enter().append("svg:rect");
-                    texts.enter().append("svg:text");
-
-                    // exit
-                    rects.exit().remove();
-                    texts.exit().remove();
-                }
-
-                /******** stats ********/
-
-            /*    stats = new Stats();
-                stats.domElement.style.position = 'absolute';
-                stats.domElement.style.top = '0px';
-                document.getElementById('container').appendChild( stats.domElement );
-
-                // update stats on every iteration
-                document.addEventListener('clmtrackrIteration', function(event) {
-                    stats.update();
-                }, false);
-                */
-
-            </script>
-        </div>
-
 </body>
 
 </html>
