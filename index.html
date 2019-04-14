@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="捕捉情感，學習更有溫度。這是DDLab的ATS情感式家教系統">
 <meta name="keywords" content="情感運萬,DDLab">
+<meta http-equiv='cache-control' content='no-cache'>
+
+<meta http-equiv='expires' content='0'>
+
+<meta http-equiv='pragma' content='no-cache'>
     <!-- PAGE settings -->
     <link rel="icon" href="images/web_icon.png">
     <title>ATS情感式家教系統</title>
@@ -16,14 +21,14 @@
 
     #overlay {
                 position: absolute;
-                top: 0px;
-                left: 0px;
-                -o-transform : scaleX(-1);
-                -webkit-transform : scaleX(-1);
-                transform : scaleX(-1);
+                top: 25%;
+                left: 30%;
+                -o-transform :  scale(-0.05,-0.05);
+                -webkit-transform : scale(-0.05,-0.05);
+                transform : scale(0.5,0.5);
                 -ms-filter : fliph; /*IE*/
                 filter : fliph; /*IE*/
-                opacity: 0;
+                opacity: 50;
 
                         }
 
@@ -33,7 +38,8 @@
                 transform : scaleX(-1);
                 -ms-filter : fliph; /*IE*/
                 filter : fliph; /*IE*/
-
+                  object-fit: cover;
+    border-radius: 50%;
                 
             }
 
@@ -46,16 +52,26 @@
             text-align: left;
             padding: 1px;
             width: fit-content;
-            border-radius: 30px;
+            border-radius: 30px;    line-height: normal;
         }
-        
+         .botText span {
+                background: lightgoldenrodyellow;
+    border-radius: 10px;    line-height: normal;
+    padding: 1px 10px;
+        }
+           
         .userText {
             border: 0px gray solid;
             text-align: right;
             padding: 5px;
             border-radius: 5px;
         }
-        
+        .userText span
+        {
+            background: #e1e2fb;
+    border-radius: 10px;
+    padding: 1px 10px;
+        }
 
     </style>
 
@@ -69,18 +85,17 @@
     <script src="assets/js/animate-in.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- UI scripts -->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
+<!--
     <script type="text/javascript" src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
-
+-->
     <script type="text/javascript">
         var url = location.href;
         var ary = url.split("/");
         var domain = ary[2]
 
         function getBotResponse() {
-
+chatter_time
             var rawText = $("#textInput").val();
 
             var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
@@ -125,6 +140,10 @@
                     block: 'start',
                     behavior: 'smooth'
                 });
+                $.post( "insert_log.php", { chatter: chatter_time, chat: rawText, bot:bot_r_text })
+  .done(function( data ) {
+   
+  });
                 console.log(bot_r_text)
                 level_change();
 
@@ -153,18 +172,18 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container">
-                <div class="logo" style="width:50px"><img src="images/logo.png"></div>
+                <div class="logo" style="width:30px; padding: 0.2em"><img width="30px" src="images/web_logo.png"></div>
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button id="menu_btn" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
                     <ul class="navbar-nav mx-2">
                         <li class="nav-item">
-                            <a class="btn nav-link" href="#start">首頁</a>
+                            <a class="btn nav-link" href="#start" onclick="$('#menu_btn').click()">首頁</a>
                          <!--   <a class="btn nav-link" href="#course">課程</a> -->
-                            <a class="btn nav-link" href="#achievement">關於</a>
+                            <a class="btn nav-link" href="#achievement" onclick="$('#menu_btn').click()">關於</a>
                             <!--
                     <a class="btn nav-link" href="#setting">設定</a>                  
                     <a class="btn nav-link" href="#test">問卷</a>
@@ -176,18 +195,24 @@
         </nav>
 
         <!-- Header -->
+        
         <header id="header">
             <div>
                 <div class="inner">
                     <h1>捕捉情感<br>學習更有溫度</h1>
+
+                   
+
                 </div>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#start" class="start" style="color:white">開始使用</a></li>
+                 <li><a href="#start" class="start" style="color:white">請授權視訊鏡頭開啟</a></li>
                 </ul>
             </nav>
+             <img width="90%" src="ddlab_logo_white.png">
         </header>
+    
 
         <!-- Main -->
         <div id="main">
@@ -199,7 +224,7 @@
                     <iframe id="read_iframe" onLoad="reload_ch();" src="./class/music/1_1.htm" width="100%" height="500em" name="search_iframe"></iframe>
                 -->
 
-                <iframe width="100%" height="200" src="https://www.youtube.com/embed/jicJx_sTgS8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/jicJx_sTgS8?rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                 </div>
 
@@ -207,30 +232,15 @@
                 <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
                 <h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
 -->
-                <div class="saying" style="">
-
-                   與助教對話
-                    <div id="chatbox_wrap" class="mwt_border">
-                        <!--
-                        <span class="arrow_b_int"></span>
-                        <span class="arrow_b_out"></span>
-                      -->
-
-                        <div id="chatbox" >
-
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="wrapper-chat">
 
-                    <div class="owl" style="">
-                        <p id="bot" style="text-align:center">
-                            <img data-toggle="popover" data-placement="top" title="" data-content="" id="bot_img" style="width:100%;" src="emotion/normal_a.gif">
-                        </p>
+                    <div class="owl" style="width: 100%;text-align:center">
+                      
+                            <img id="bot_img" src="emotion/normal_a.gif">
+                       
                     </div>
-                    <div class="face" style="">
+                    <div class="face" style="width: 100%">
                        <!-- <div class="" id="affdex_elements" style=""> -->
                         
     <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
@@ -252,11 +262,30 @@
                     </div>
 
                 </div>
+
+
+                                <div class="saying" style="">
+
+                   
+                    <div id="chatbox_wrap" class="mwt_border">
+                        <!--
+                        <span class="arrow_b_int"></span>
+                        <span class="arrow_b_out"></span>
+                      -->
+
+                        <div id="chatbox" style="padding:3px" >
+
+                        </div>
+                    </div>
+
+                </div>
                 <div id="userInput" class="chat" style="display:flex; flex-direction:row;">
-                    <input id="textInput" type="text" style=" flex-grow:2;" class="form-control" placeholder="請輸入你的想法..." id="textInput">
-                    <button id="buttonInput" type="button" value="➤" class="primary">➤</button>
+                    <input id="textInput" type="text" style=" flex-grow:2;" class="form-control" placeholder="我有話要說..." id="textInput">
+                    <button id="buttonInput" type="button" value="➤" class="primary" style="    font-size: x-large;">➤</button>
                     <br>
                 </div>
+
+
 
                 <div class="row" style="display:none">
 
@@ -277,6 +306,7 @@
 
                 
                 <HR>
+                <br><br><br><br><br><br>
        
        <!--
          <div id='emotion_chart' style=""></div>
@@ -285,14 +315,11 @@
              <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input> 
             </div>  -->
                 <center>
+                    - DDLab -
 
                     <!-- <button id="next_class_btn" onclick="change_class(0)">下一章</button> -->
                 </center>
 
-            <br>
-            <br>
-            <br>
-            <br>
 
             </article>
 
@@ -454,19 +481,23 @@
 
             <!-- Achievement -->
             <article id="achievement">
-                <h2 class="major">關於製作團隊</h2> 
+                <h2 class=>關於製作團隊</h2> 
+                <br>國立臺南大學數位藝術與互動設計實驗室
                 <br>指導老師 林豪鏘
                 <br>
                 <br>團隊成員
                 <br>馬毓君 陳凌漢 張小均 蘇倫可 彭麒安
                 <br>蔡碧芬 林孟增 陳怡蓁 林語瑄 余玳均 
-                <br>蔡孟君 黃琮駿 劉欣蘭 郭文鱗
+                <br>蔡孟君 劉欣蘭 郭文鱗
                 <br>
                 <br>
                 <hr>
-                版本 201948v1-
+                版本 20190414
                 <br>
                 神秘號 <span id="level_show"></span>
+                <br>
+                 <a href='https://www.symptoma.es/'>線上人數</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=0c4080b3672ec9681f6cf4eee399871754b83761'></script>
+<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/516410/t/0"></script>
 
                 <hr>
                 <center>
@@ -504,7 +535,7 @@
                     </div>
                     <ul class="actions">
                         <li>
-                            <input type="submit" value="➤" class="primary" />
+                            <input type="submit" value="➤" class="primary"  />
                         </li>
                         <li>
                             <input type="reset" value="重置" />
@@ -526,30 +557,26 @@
     <div id="bg"></div>
 
     <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Script: Smooth scrolling between anchors in the same page -->
     <!--<script src="js/smooth-scroll.js" style=""></script>-->
+
+
     <!-- tf -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9"></script>
+ <!--   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9"></script>-->
     <!-- utils -->
-    <script src="js/tracking-min.js"></script>
+  <!--     <script src="js/tracking-min.js"></script>
     <script src="js/face-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.0/sweetalert2.all.min.js"></script>
+-->
 
-    <link rel="stylesheet" href="https://unpkg.com/simplebar@3.1.5/dist/simplebar.css" />
-    <script src="https://unpkg.com/simplebar@3.1.5/dist/simplebar.min.js"></script>
-    <!-- or -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@3.1.5/dist/simplebar.css">
-    <script src="https://cdn.jsdelivr.net/npm/simplebar@3.1.5/dist/simplebar.min.js"></script>
+
 
     <script type="text/javascript">
         function addcsstoiframe(argument) {
@@ -615,7 +642,7 @@
     <script type="text/javascript">
         // SDK Needs to create video and canvas nodes in the DOM in order to function
         // Here we are adding those nodes a predefined div.
-        var divRoot = $("#affdex_elements")[0];
+/*        var divRoot = $("#affdex_elements")[0];
 
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
              // some code..
@@ -628,10 +655,10 @@
                     var width = 640
                     var height = 480
 
-            }
+            }*/
 
         
-        var talk = ['吃飽未？', '嗨嗨', '今天過得好嗎？', '心情如何？', '喜歡上面的教材嗎？', '今天天氣如何？', '這很簡單吧？', '呵呵...', '喵喵喵喵', '哈囉你好哇！','現在的你有什麼感覺？']
+        var talk = ['你現在心情如何?','吃飽未？', '嗨嗨', '今天過得好嗎？', '心情如何？', '喜歡上面的教材嗎？', '今天天氣如何？', '我喜歡喝咖啡，你呢？', '呵呵...', '喵喵喵喵', '哈囉你好哇！','現在的你有什麼感覺？']
      //   var faceMode = affdex.FaceDetectorMode.SMALL_FACES*;
 
         var level = 2 // 3難2中1易
@@ -668,10 +695,59 @@
         });*/
 
         // A $( document ).ready() block.
+
+var date = new Date();
+var timestamp = date.getTime();
+var chatter_time= timestamp
+
         $(document).ready(function() {
 
 
-            random_talk = talk[ Math.floor((Math.random() * talk.length)) ]
+
+
+
+
+var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others
+    scrollTopPadding = 0;
+
+$('#textInput').focus(function() {
+    // get textarea's offset top position
+    var textareaTop = $(this).offset().top;
+    // scroll to the textarea
+    $htmlOrBody.scrollTop(textareaTop - scrollTopPadding);
+});
+
+
+(function() {
+var u = navigator.userAgent,
+ua = navigator.userAgent.toLowerCase(),
+isLineApp = u.indexOf("Line") > -1, // Line 內建瀏覽器
+isFbApp = u.indexOf("FBAV") > -1, // FB App 內建瀏覽器
+isWeixinApp = ua.match(/MicroMessenger/i) == "micromessenger"; // 微信內建瀏覽器
+
+// 如果是 Line 內建瀏覽器
+if (isLineApp) {
+// do sth
+alert("請勿使用Line內建瀏覽器,開不了視訊鏡頭唷")
+}
+
+// 如果是 FB App 內建瀏覽器
+if (isFbApp) {
+// do sth
+alert("請勿使用FB內建瀏覽器,開不了視訊鏡頭唷")
+
+}
+
+// 如果是 微信內建瀏覽器
+if (isWeixinApp) {
+// do sth
+}
+})();
+
+
+
+          //  random_talk = talk[ Math.floor((Math.random() * talk.length)) ]
+          random_talk=talk[0]
             var botHtml = '<p class="botText"><span>' + random_talk+ '</span></p>';
             $("#chatbox").append(botHtml);
 
@@ -688,7 +764,7 @@
 startVideo()
 
             //每_秒偵測一次臉部表情
-            setInterval(bot_stat, 5000);
+            setInterval(bot_stat, 6000);
 
 
             $('#input_text').on('keydown', function(e) {
@@ -966,7 +1042,7 @@ startVideo()
 
                 function drawLoop() {
                     requestAnimFrame(drawLoop);
-                    overlayCC.clearRect(0, 0, vid_width, vid_height);
+                    overlayCC.clearRect(0, 0, 400 , 300);
                     //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
                     if (ctrack.getCurrentPosition()) {
                         ctrack.draw(overlay);
@@ -1087,6 +1163,7 @@ startVideo()
                 */
 
             </script>
+
         </div>
 
 </body>
