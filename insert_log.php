@@ -16,7 +16,7 @@ if (!$conn) {
 }
 mysqli_query($conn,"set names 'utf8'");//寫庫 
 
-$sql = "INSERT INTO `chat_log` (`chat`, `id`, `chatter`,`bot`) VALUES ('$_POST[chat]', NULL, '$_POST[chatter]','$_POST[bot]');";
+$sql = "INSERT INTO `chat_log` (`chat`, `id`, `chatter`,`bot`,`user_emotion`) VALUES ('$_POST[chat]', NULL, '$_POST[chatter]','$_POST[bot]','$_POST[user_emotion]') ";
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";

@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <style type="text/css">
+        .set_agent
+        {
+            width:50%;
+        }
 
     #overlay {
                 position: absolute;
@@ -140,7 +144,9 @@ chatter_time
                     block: 'start',
                     behavior: 'smooth'
                 });
-                $.post( "insert_log.php", { chatter: chatter_time, chat: rawText, bot:bot_r_text })
+
+                //備份對話到php server
+                $.post( "insert_log.php", { chatter: chatter_time, chat: rawText, bot:bot_r_text,user_emotion: emo_file[man_face_emo] })
   .done(function( data ) {
    
   });
@@ -183,9 +189,10 @@ chatter_time
                         <li class="nav-item">
                             <a class="btn nav-link" href="#start" onclick="$('#menu_btn').click()">首頁</a>
                          <!--   <a class="btn nav-link" href="#course">課程</a> -->
+                          <a class="btn nav-link" href="#setting"  onclick="$('#menu_btn').click()">設定</a> 
                             <a class="btn nav-link" href="#achievement" onclick="$('#menu_btn').click()">關於</a>
                             <!--
-                    <a class="btn nav-link" href="#setting">設定</a>                  
+                                    
                     <a class="btn nav-link" href="#test">問卷</a>
                   -->
                         </li>
@@ -224,7 +231,7 @@ chatter_time
                     <iframe id="read_iframe" onLoad="reload_ch();" src="./class/music/1_1.htm" width="100%" height="500em" name="search_iframe"></iframe>
                 -->
 
-                <iframe width="100%" height="200" src="https://www.youtube.com/embed/jicJx_sTgS8?rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/cX9AsP2auT8?rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                 </div>
 
@@ -237,7 +244,7 @@ chatter_time
 
                     <div class="owl" style="width: 100%;text-align:center">
                       
-                            <img id="bot_img" src="emotion/normal_a.gif">
+                            <img id="bot_img" src="" onclick="happy()">
                        
                     </div>
                     <div class="face" style="width: 100%">
@@ -511,8 +518,75 @@ chatter_time
             <!-- About -->
             <article id="setting">
                 <h2 class="major">設定</h2>
-                <span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-                <p></p>
+                請點選圖案，選擇陪伴您的情感助教
+                <br>
+                <br>
+               <br>
+
+
+<div class="wrapper-chat">
+
+                    <div class="owl" style="width: 100%;text-align:center">
+                 <img class="set_agent" src="agent/owl/happy.gif" onclick="set_agent_name('owl')" alt="" />
+            </div>
+                      
+ 
+                    <div class="face" style="width: 100%;text-align:left">
+                       <!-- <div class="" id="affdex_elements" style=""> -->
+                   溫柔的陪伴者，充滿感情的智慧貓頭鷹，喜歡聽音樂  
+                   <br>   
+                   Designer: 毓君
+             
+                   
+                    </div>
+
+                </div>
+<hr>
+
+
+                <div class="wrapper-chat">
+
+                    <div class="owl" style="width: 100%;text-align:center">
+                      <img class="set_agent" src="agent/honda/happy.gif" onclick="set_agent_name('honda')"  alt="" />
+             </div>
+                      
+ 
+                    <div class="face" style="width: 100%;text-align:left">
+                       <!-- <div class="" id="affdex_elements" style=""> -->
+                      
+                      看似大喇喇但其實很細心，人人看到都會很想抱
+                      <br>   
+
+                      Designer: 紘達
+            
+                   
+                    </div>
+
+                </div>
+              
+             <hr>
+  
+
+
+                <div class="wrapper-chat">
+
+                    <div class="owl" style="width: 100%;text-align:center">
+                         <img class="set_agent" src="agent/weiwei/happy.gif" onclick="set_agent_name('weiwei')" alt="" />
+                    </div>
+                      
+ 
+                    <div class="face" style="width: 100%;text-align:left">
+                       <!-- <div class="" id="affdex_elements" style=""> -->
+                         表演慾強，堪稱元老級的助教，陪伴DDLab很多年的老人
+                         <br>
+                         Designer: 敬偉 
+
+                   
+                    </div>
+
+                </div>
+                <hr>
+
             </article>
 
             <!-- Contact -->
@@ -602,6 +676,7 @@ chatter_time
             console.log(loc)
             $('#read_iframe').attr('src', loc);
             location.href = "#start"
+
 
         }
 
@@ -699,11 +774,28 @@ chatter_time
 var date = new Date();
 var timestamp = date.getTime();
 var chatter_time= timestamp
+var agent_name ="owl"
+
+function set_agent_name(name) {
+    // body...
+    agent_name = name
+    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
+    location.href="#start"
+
+
+}
+function happy(argument) {
+    // body...
+        $("#bot_img").attr("src", "agent/" + agent_name +'/happy' + ".gif")
+        //被摸就會開心
+
+}
 
         $(document).ready(function() {
 
 
-
+//
+$("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
 
 //iOS以外的鍵盤需要空格才不會擋到畫面
 if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -820,12 +912,12 @@ startVideo()
             {
                 man_face_emo = 4;
                 if (Math.floor((Math.random() * 2) + 1) == 1) {
-                    $("#bot_img").attr("src", "emotion/" + 'normal_a' + ".gif")
+                    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
                 } else {
-                    $("#bot_img").attr("src", "emotion/" + 'normal_b' + ".gif")
+                    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_b' + ".gif")
                 }
             } else {
-                $("#bot_img").attr("src", "emotion/" + emo_file[top_i] + ".gif")
+                $("#bot_img").attr("src", "agent/" + agent_name +'/' + emo_file[top_i] + ".gif")
             }
             console.log(emo_file[man_face_emo])
         }
