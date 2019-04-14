@@ -111,7 +111,7 @@ chatter_time
                 block: 'start',
                 behavior: 'smooth'
             });
-            $.get("https://ats.nutn.edu.tw:5000/get", {
+            $.get("https://"+location.host+":5000/get", {
                 msg: rawText
             }).done(function(data) {
 
@@ -306,7 +306,7 @@ chatter_time
 
                 
                 <HR>
-                <br><br><br><br><br><br>
+                <div id="kyb_space"></div>
        
        <!--
          <div id='emotion_chart' style=""></div>
@@ -705,17 +705,25 @@ var chatter_time= timestamp
 
 
 
+//iOS以外的鍵盤需要空格才不會擋到畫面
+if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#kyb_space").html("<br><br><br><br><br><br>")
+             // some code..
 
-
-var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others
+             //自動跳到輸入框的畫面避免鍵盤被擋到
+                     var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others
     scrollTopPadding = 0;
 
-$('#textInput').focus(function() {
+//
+$('#textInput').focus(function() { 
     // get textarea's offset top position
     var textareaTop = $(this).offset().top;
     // scroll to the textarea
     $htmlOrBody.scrollTop(textareaTop - scrollTopPadding);
 });
+
+}
+
 
 
 (function() {
@@ -741,6 +749,8 @@ alert("請勿使用FB內建瀏覽器,開不了視訊鏡頭唷")
 // 如果是 微信內建瀏覽器
 if (isWeixinApp) {
 // do sth
+alert("請勿使用WeChat內建瀏覽器,開不了視訊鏡頭唷")
+
 }
 })();
 
@@ -785,10 +795,6 @@ startVideo()
             ///
 
         });
-
-        function jsonpCallback(data) {
-            //   console.log(data)
-        }
 
 
 
@@ -1003,7 +1009,7 @@ startVideo()
                 }
 
                 function gumFail() {
-                    alert("There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
+                    alert("喔不，你的瀏覽器沒辦法提供視訊鏡頭，如果沒出現要求鏡頭授權畫面，請改用Android Chrome App或iOS Sarfri是試看喔！There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
                 }
 
                 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
