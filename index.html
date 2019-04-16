@@ -1,1269 +1,1220 @@
 <!DOCTYPE HTML>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="捕捉情感，學習更有溫度。這是DDLab的ATS情感式家教系統">
-<meta name="keywords" content="情感運萬,DDLab">
-<meta http-equiv='cache-control' content='no-cache'>
-
-<meta http-equiv='expires' content='0'>
-
-<meta http-equiv='pragma' content='no-cache'>
-    <!-- PAGE settings -->
-    <link rel="icon" href="images/web_icon.png">
-    <title>ATS情感式家教系統</title>
-    <!-- CSS dependencies -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-    <style type="text/css">
-        .set_agent
-        {
-            width:50%;
-        }
-
-    #overlay {
-                position: absolute;
-                top: 25%;
-                left: 30%;
-                -o-transform :  scale(-0.05,-0.05);
-                -webkit-transform : scale(-0.05,-0.05);
-                transform : scale(0.5,0.5);
-                -ms-filter : fliph; /*IE*/
-                filter : fliph; /*IE*/
-                opacity: 50;
-
-                        }
-
-            #videoel {
-                -o-transform : scaleX(-1);
-                -webkit-transform : scaleX(-1);
-                transform : scaleX(-1);
-                -ms-filter : fliph; /*IE*/
-                filter : fliph; /*IE*/
-                  object-fit: cover;
-    border-radius: 50%;
-                
-            }
-
-
-
-
-
-        .botText {
-            border: 0px white solid;
-            text-align: left;
-            padding: 1px;
-            width: fit-content;
-            border-radius: 30px;    line-height: normal;
-        }
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="捕捉情感，學習更有溫度。這是DDLab的ATS情感式家教系統">
+      <meta name="keywords" content="情感運算,DDLab,affective computing,nutn">
+      <meta http-equiv='cache-control' content='no-cache'>
+      <meta http-equiv='expires' content='0'>
+      <meta http-equiv='pragma' content='no-cache'>
+      <!-- PAGE settings -->
+      <link rel="icon" href="images/web_icon.png">
+      <title>ATS情感式家教系統</title>
+      <!-- CSS dependencies -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+      <style type="text/css">
+          .emoji
+          {
+            width: 1em;
+          }
+         .set_agent
+         {
+         width:70%;
+         }
+         #overlay {
+         position: absolute;
+         top: 25%;
+         left: 30%;
+         -o-transform :  scale(-0.05,-0.05);
+         -webkit-transform : scale(-0.05,-0.05);
+         transform : scale(0.5,0.5);
+         -ms-filter : fliph; /*IE*/
+         filter : fliph; /*IE*/
+         opacity: 50;
+         }
+         #videoel {
+         -o-transform : scaleX(-1);
+         -webkit-transform : scaleX(-1);
+         transform : scaleX(-1);
+         -ms-filter : fliph; /*IE*/
+         filter : fliph; /*IE*/
+         object-fit: cover;
+         border-radius: 50%;
+         }
+         .botText {
+         border: 0px white solid;
+         text-align: left;
+         padding: 1px;
+         width: fit-content;
+         border-radius: 30px;    line-height: normal;
+         }
          .botText span {
-                background: lightgoldenrodyellow;
-    border-radius: 10px;    line-height: normal;
-    padding: 1px 10px;
-        }
-           
-        .userText {
-            border: 0px gray solid;
-            text-align: right;
-            padding: 5px;
-            border-radius: 5px;
-        }
-        .userText span
-        {
-            background: #e1e2fb;
-    border-radius: 10px;
-    padding: 1px 10px;
-        }
+         background: lightgoldenrodyellow;
+         border-radius: 10px;    line-height: normal;
+         padding: 1px 10px;
+         }
+         .userText {
+         border: 0px gray solid;
+         text-align: right;
+         padding: 5px;
+         border-radius: 5px;
+         }
+         .userText span
+         {
+         background: #e1e2fb;
+         border-radius: 10px;
+         padding: 1px 10px;
+         }
+      </style>
+      <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+      <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+      <script src="assets/js/navbar-ontop.js"></script>
+      <!-- Script: Animated entrance -->
+      <script src="assets/js/animate-in.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!-- UI scripts -->
+      <!--
+         <script type="text/javascript" src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
+         -->
+      <script type="text/javascript">
+         var url = location.href;
+         var ary = url.split("/");
+         var domain = ary[2]
+         
+         function getBotResponse() {
+         
+             var rawText = $("#textInput").val();
+         
+             var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+         
+             $("#chatbox").append(userHtml);
+             $("#chatbox_wrap").animate({
+                 scrollTop: $('#chatbox_wrap').prop("scrollHeight")
+             }, 1000);
+         
+             $("#textInput").val("");
+             $("#saying").append(userHtml);
+             //對話後自動下拉卷軸
+             document.getElementById('userInput').scrollIntoView({
+                 block: 'start',
+                 behavior: 'smooth'
+             });
 
-    </style>
+             //取得chatbot回應與文字情緒判斷
+             $.get("https://"+location.host+":5000/get", {
+                 msg: rawText
+             }).done(function(data) {
+         
+                 var ary = data.split("_#_");
+                 var bot_r_text = ary[0]
+                 var user_text_emotion_by_py = ary[1]
+                 console.log('e:' + user_text_emotion_by_py)
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-
-    <link rel="stylesheet" href="assets/css/noscript.css" />
-
-    <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-    <script src="assets/js/navbar-ontop.js"></script>
-    <!-- Script: Animated entrance -->
-    <script src="assets/js/animate-in.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- UI scripts -->
-
-<!--
-    <script type="text/javascript" src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
--->
-    <script type="text/javascript">
-        var url = location.href;
-        var ary = url.split("/");
-        var domain = ary[2]
-
-        function getBotResponse() {
-chatter_time
-            var rawText = $("#textInput").val();
-
-            var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
-
-            $("#chatbox").append(userHtml);
-            $("#chatbox_wrap").animate({
-                scrollTop: $('#chatbox_wrap').prop("scrollHeight")
-            }, 1000);
-
-            $("#textInput").val("");
-            $("#saying").append(userHtml);
-            document.getElementById('userInput').scrollIntoView({
-                block: 'start',
-                behavior: 'smooth'
-            });
-            $.get("https://"+location.host+":5000/get", {
-                msg: rawText
-            }).done(function(data) {
-
-                var ary = data.split("_#_");
-                var bot_r_text = ary[0]
-                var user_text_emotion_by_py = ary[1]
-                console.log('e:' + user_text_emotion_by_py)
-
-                //py的情緒為: = ["neutral", "happy", "sad", "hate","anger"]
-                if (user_text_emotion_by_py.indexOf('happy') != -1) {
-                    man_text_emo = 1;
-
-                } else if (user_text_emotion_by_py.indexOf('neutral') != -1) {
-                    //man_text_emo=0;
-                } else {
-                    man_text_emo = -1;
-                }
-
-                var botHtml = '<p class="botText"><span>' + bot_r_text + '</span></p>';
-                $("#chatbox").append(botHtml);
-                $("#chatbox_wrap").animate({
-                    scrollTop: $('#chatbox_wrap').prop("scrollHeight")
-                }, 1000);
-
-                document.getElementById('userInput').scrollIntoView({
-                    block: 'start',
-                    behavior: 'smooth'
-                });
-
-                //備份對話到php server
-                $.post( "insert_log.php", { chatter: chatter_time, chat: rawText, bot:bot_r_text,user_emotion: emo_file[man_face_emo] })
-  .done(function( data ) {
-   
-  });
-                console.log(bot_r_text)
-                level_change();
-
-            });
-        }
-        $(function() {
-            $("#textInput").keypress(function(e) {
-                if (e.which == 13) {
-                    getBotResponse();
-                }
-            });
-            $("#buttonInput").click(function() {
-
-                getBotResponse();
-            })
-        });
-    </script>
-
-</head>
-
-<body class="is-preload">
-
-    <!-- Wrapper -->
-    <div id="wrapper">
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                 var len = $(".userText").length
+                 var emojhtml = '&nbsp<img class="emoji" src="images/emoji/'+user_text_emotion_by_py+'.png" />&nbsp'
+                 $(".userText")[len-1].innerHTML = emojhtml + $(".userText")[len-1].innerHTML 
+         
+                 //python後端的情緒為: = ["neutral", "happy", "sad", "hate","anger"]
+                 if (user_text_emotion_by_py.indexOf('happy') != -1) {
+                     man_text_emo = 1;
+         
+                 } else if (user_text_emotion_by_py.indexOf('neutral') != -1) {
+                     //man_text_emo=0;
+                 } else {
+                     man_text_emo = -1;
+                 }
+                //chatbot回應
+                 var botHtml = '<p class="botText"><span>' + bot_r_text + '</span></p>';
+                 $("#chatbox").append(botHtml);
+                 $("#chatbox_wrap").animate({
+                     scrollTop: $('#chatbox_wrap').prop("scrollHeight")
+                 }, 1000);
+                
+                //對話後自動下拉卷軸
+                 document.getElementById('userInput').scrollIntoView({
+                     block: 'start',
+                     behavior: 'smooth'
+                 });
+         
+                 //備份對話到php server
+                 $.post( "insert_log.php", { chatter: chatter_time, chat: rawText, bot:bot_r_text,user_emotion: emo_file[man_face_emo] })
+         .done(function( data ) {
+         
+         });
+                 console.log(bot_r_text)
+                 level_change();
+         
+             });
+         }
+         $(function() {
+             $("#textInput").keypress(function(e) {
+                 if (e.which == 13) {
+                     getBotResponse();
+                 }
+             });
+             $("#buttonInput").click(function() {
+         
+                 getBotResponse();
+             })
+         });
+      </script>
+   </head>
+   <body class="is-preload">
+      <!-- Wrapper -->
+      <div id="wrapper">
+         <!-- Navbar -->
+         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container">
-                <div class="logo" style="width:30px; padding: 0.2em"><img width="30px" src="images/web_logo.png"></div>
-
-                <button id="menu_btn" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-                    <ul class="navbar-nav mx-2">
-                        <li class="nav-item">
-                            <a class="btn nav-link" href="#start" onclick="$('#menu_btn').click()">首頁</a>
-                         <!--   <a class="btn nav-link" href="#course">課程</a> -->
-                          <a class="btn nav-link" href="#setting"  onclick="$('#menu_btn').click()">設定</a> 
-                            <a class="btn nav-link" href="#achievement" onclick="$('#menu_btn').click()">關於</a>
-                            <!--
-                                    
-                    <a class="btn nav-link" href="#test">問卷</a>
-                  -->
-                        </li>
-                    </ul>
-                </div>
+               <div class="logo" style="width:30px; padding: 0.2em"><img width="30px" src="images/web_logo.png"></div>
+               <button id="menu_btn" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
+                  <ul class="navbar-nav mx-2">
+                     <li class="nav-item">
+                        <a class="btn nav-link" href="#start" onclick="$('#menu_btn').click()">首頁</a>
+                        <!--   <a class="btn nav-link" href="#course">課程</a> -->
+                        <a class="btn nav-link" href="#setting"  onclick="$('#menu_btn').click()">設定</a> 
+                        <a class="btn nav-link" href="#achievement" onclick="$('#menu_btn').click()">關於</a>
+                        <!--
+                           <a class="btn nav-link" href="#test">問卷</a>
+                           -->
+                     </li>
+                  </ul>
+               </div>
             </div>
-        </nav>
-
-        <!-- Header -->
-        
-        <header id="header">
+         </nav>
+         <!-- Header -->
+         <header id="header">
             <div>
-                <div class="inner">
-                    <h1>捕捉情感<br>學習更有溫度</h1>
-
-                   
-
-                </div>
+               <div class="inner">
+                  <h1>捕捉情感<br>學習更有溫度</h1>
+               </div>
             </div>
             <nav>
-                <ul>
-                 <li><a href="#start" class="start" style="color:white">請授權視訊鏡頭開啟</a></li>
-                </ul>
+               <ul>
+                  <li><a href="#start" class="start" style="color:white">請授權視訊鏡頭開啟</a></li>
+               </ul>
             </nav>
-             <img width="90%" src="ddlab_logo_white.png">
-        </header>
-    
-
-        <!-- Main -->
-        <div id="main">
-
+            <img width="90%" src="ddlab_logo_white.png">
+         </header>
+         <!-- Main -->
+         <div id="main">
             <!-- Intro -->
             <article id="start">
-                <div id="reading">
-                    <!--
-                    <iframe id="read_iframe" onLoad="reload_ch();" src="./class/music/1_1.htm" width="100%" height="500em" name="search_iframe"></iframe>
-                -->
-
-                <iframe width="100%" height="200" src="https://www.youtube.com/embed/cX9AsP2auT8?rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                </div>
-
-                <!--                <h2 class="major">數位音樂</h2>
-                <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-                <h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
--->
-
-                <div class="wrapper-chat">
-
-                    <div class="owl" style="width: 100%;text-align:center">
-                      
-                            <img id="bot_img" src="" onclick="happy()">
-                       
-                    </div>
-                    <div class="face" style="width: 100%">
-                       <!-- <div class="" id="affdex_elements" style=""> -->
-                        
-    <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
-                </video>
-                <canvas id="overlay" width="400" height="300"></canvas>
-         
-       
-       <!--     <div id="emotion_container">
-                <div id="emotion_icons">
-                    <img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
-                    <img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
-                    <img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
-                    <img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
-                </div> -->
-       
- 
-
-                     
-                    </div>
-
-                </div>
-
-
-                                <div class="saying" style="">
-
-                   
-                    <div id="chatbox_wrap" class="mwt_border">
-                        <!--
+               <div id="reading">
+                  <!--
+                     <iframe id="read_iframe" onLoad="reload_ch();" src="./class/music/1_1.htm" width="100%" height="500em" name="search_iframe"></iframe>
+                     -->
+                  <iframe width="100%" height="200" src="https://www.youtube.com/embed/cX9AsP2auT8?rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+               </div>
+               <!--                <h2 class="major">數位音樂</h2>
+                  <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+                  <h3 class="contents">數位音樂之發展歷程應追溯至50年代具象音樂與電子音樂之創作，作曲家使用簡單的類比式電子設備如磁帶錄音機 (Tape Recorder)，將預錄的大自然環境具象聲音為素材創作新音樂，或以電子儀器如震盪器(Oscillator)所產生之純粹電子音創作。在80年代之後隨著科技之日益精進，此二者之音樂創作逐漸從類比之環境轉移到數位的環境中，然而創作環境之轉換並未帶來多大之音樂風格及實質內涵上的改變，換言之，時下一大部分之數位音樂發展仍延續者過去類比時代的傳統。</h3>
+                  -->
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img id="bot_img" src="" onclick="happy()">
+                  </div>
+                  <div class="face" style="width: 100%">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
+                     </video>
+                     <canvas id="overlay" width="400" height="300"></canvas>
+                     <!--     <div id="emotion_container">
+                        <div id="emotion_icons">
+                            <img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
+                            <img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
+                            <img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
+                            <img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
+                        </div> -->
+                  </div>
+               </div>
+               <div class="saying" style="">
+                  <div id="chatbox_wrap" class="mwt_border">
+                     <!--
                         <span class="arrow_b_int"></span>
                         <span class="arrow_b_out"></span>
-                      -->
-
-                        <div id="chatbox" style="padding:3px" >
-
-                        </div>
-                    </div>
-
-                </div>
-                <div id="userInput" class="chat" style="display:flex; flex-direction:row;">
-                    <input id="textInput" type="text" style=" flex-grow:2;" class="form-control" placeholder="我有話要說..." id="textInput">
-                    <button id="buttonInput" type="button" value="➤" class="primary" style="    font-size: x-large;">➤</button>
-                    <br>
-                </div>
-
-
-
-                <div class="row" style="display:none">
-
-                    <div class="col-md-12">
-                        <div style="height:30em;">
-                            <strong>EMOTION TRACKING RESULTS</strong>
-                            <div id="results" style="word-wrap:break-word;"></div>
-                        </div>
-                        <div>
-                            <strong>DETECTOR LOG MSGS</strong>
-                        </div>
-                        <div id="logs"><span>Clicked the start button</span>
-                            <br><span>webcam denied</span>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <HR>
-                <div id="kyb_space"></div>
-       
-       <!--
-         <div id='emotion_chart' style=""></div>
-       
-            <div id="controls">
-             <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input> 
-            </div>  -->
-                <center>
-                    - DDLab -
-
-                    <!-- <button id="next_class_btn" onclick="change_class(0)">下一章</button> -->
-                </center>
-
-
+                        -->
+                     <div id="chatbox" style="padding:3px" >
+                     </div>
+                  </div>
+               </div>
+               <div id="userInput" class="chat" style="display:flex; flex-direction:row;">
+                  <input id="textInput" type="text" style=" flex-grow:2;" class="form-control" placeholder="我有話要說..." id="textInput">
+                  <button id="buttonInput" type="button" value="➤" class="primary" style="    font-size: x-large;">➤</button>
+                  <br>
+               </div>
+               <div class="row" style="display:none">
+                  <div class="col-md-12">
+                     <div style="height:30em;">
+                        <strong>EMOTION TRACKING RESULTS</strong>
+                        <div id="results" style="word-wrap:break-word;"></div>
+                     </div>
+                     <div>
+                        <strong>DETECTOR LOG MSGS</strong>
+                     </div>
+                     <div id="logs"><span>Clicked the start button</span>
+                        <br><span>webcam denied</span>
+                        <br>
+                     </div>
+                  </div>
+               </div>
+               <HR>
+               <div id="kyb_space"></div>
+               <!--
+                  <div id='emotion_chart' style=""></div>
+                  
+                     <div id="controls">
+                      <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input> 
+                     </div>  -->
+               <center>
+                  - DDLab -
+                  <!-- <button id="next_class_btn" onclick="change_class(0)">下一章</button> -->
+               </center>
             </article>
-
             <!-- Course -->
             <article id="course">
 
-  <div>
-                    <h2 class="major">科技音樂課程</h2>
 
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(1);">
-                        ch1
-                        <br> 文藝復興
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(2)">
-                        ch2
-                        <br> 巴洛克時期
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(3)">
-                        ch3
-                        <br> 古典時期
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(4)">
-                        ch4
-                        <br> 浪漫時期
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(5)">
-                        ch5
-                        <br> 現代音樂
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(6)">
-                        ch6
-                        <br> 電影音樂
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(7)">
-                        ch7
-                        <br> 新世紀音樂
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(8)">
-                        ch8
-                        <br> 數位音樂
-                        <br>
-                    </p>
-                    <p class="class-btn btn-light" onclick=" book='music'; change_class(9)">
-                        ch9
-                        <br> 國民音樂
-                        <br>
-                    </p>
-                </div>
-<br>
-                <div>
-                    <h2 class="major">科技藝術課程</h2>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(1)">
-                        ch1
-                        <br> 漫談數位藝術-1
-
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(2)">
-                        ch2
-                        <br> 漫談數位藝術-2
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(3)">
-                        ch3
-                        <br> 漫談數位藝術-3
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(4)">
-                        ch4
-                        <br> 漫談數位藝術-4
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(5)">
-                        ch5
-                        <br> 表演藝術
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(6)">
-                        ch6
-                        <br> 網路藝術－數位藝術
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(7)">
-                        ch7
-                        <br> 錄影藝術
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(8)">
-                        ch8
-                        <br> 軟體藝術
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(9)">
-                        ch9
-                        <br> 新媒體藝術
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(10)">
-                        ch10
-                        <br> 台灣藝術e檔案-1
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(11)">
-                        ch11
-                        <br> 台灣藝術e檔案-2
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(12)">
-                        ch12
-                        <br> 台灣藝術e檔案-3
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(13)">
-                        ch13
-                        <br> 台灣藝術e檔案-4
-                        <br>
-                    </p>
-
-                    <p class="class-btn btn-light" onclick=" book='art'; change_class(14)">
-                        ch14
-                        <br> 台灣藝術e檔案-5
-                        <br>
-                    </p>
-
-                </div>
-
-                <br>
-
-              
-
+     <div>
+                  <h2 class="major">科技藝術課程</h2>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(1)">
+                     ch1
+                     <br> 漫談數位藝術-1
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(2)">
+                     ch2
+                     <br> 漫談數位藝術-2
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(3)">
+                     ch3
+                     <br> 漫談數位藝術-3
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(4)">
+                     ch4
+                     <br> 漫談數位藝術-4
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(5)">
+                     ch5
+                     <br> 表演藝術
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(6)">
+                     ch6
+                     <br> 網路藝術－數位藝術
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(7)">
+                     ch7
+                     <br> 錄影藝術
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(8)">
+                     ch8
+                     <br> 軟體藝術
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(9)">
+                     ch9
+                     <br> 新媒體藝術
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(10)">
+                     ch10
+                     <br> 台灣藝術e檔案-1
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(11)">
+                     ch11
+                     <br> 台灣藝術e檔案-2
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(12)">
+                     ch12
+                     <br> 台灣藝術e檔案-3
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(13)">
+                     ch13
+                     <br> 台灣藝術e檔案-4
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='art'; change_class(14)">
+                     ch14
+                     <br> 台灣藝術e檔案-5
+                     <br>
+                  </p>
+               </div>
+                  <br>
+               <div>
+                  <h2 class="major">科技音樂課程</h2>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(1);">
+                     ch1
+                     <br> 文藝復興
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(2)">
+                     ch2
+                     <br> 巴洛克時期
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(3)">
+                     ch3
+                     <br> 古典時期
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(4)">
+                     ch4
+                     <br> 浪漫時期
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(5)">
+                     ch5
+                     <br> 現代音樂
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(6)">
+                     ch6
+                     <br> 電影音樂
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(7)">
+                     ch7
+                     <br> 新世紀音樂
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(8)">
+                     ch8
+                     <br> 數位音樂
+                     <br>
+                  </p>
+                  <p class="class-btn btn-light" onclick=" book='music'; change_class(9)">
+                     ch9
+                     <br> 國民音樂
+                     <br>
+                  </p>
+               </div>
+           
+          
+               <br>
             </article>
-
             <!-- Achievement -->
             <article id="achievement">
-                <h2 class=>關於製作團隊</h2> 
-                <br>國立臺南大學數位藝術與互動設計實驗室
-                <br>指導老師 林豪鏘
-                <br>
-                <br>團隊成員
-                <br>馬毓君 陳凌漢 張小均 蘇倫可 彭麒安
-                <br>蔡碧芬 林孟增 陳怡蓁 林語瑄 余玳均 
-                <br>蔡孟君 劉欣蘭 郭文鱗
-                <br>
-                <br>
-                <hr>
-                版本 20190414
-                <br>
-                神秘號 <span id="level_show"></span>
-                <br>
-                 <a href='https://www.symptoma.es/'>線上人數</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=0c4080b3672ec9681f6cf4eee399871754b83761'></script>
-<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/516410/t/0"></script>
-
-                <hr>
-                <center>
-                <img src="ddlab_logo_black.png" width="250px" />
-                </center>
-                <p><!--國立臺南大學數位藝術與互動設計實驗室-->
-                </p>
-
+               <h2 class=>關於製作團隊</h2>
+               <br>國立臺南大學數位藝術與互動設計實驗室
+               <br>指導老師 林豪鏘
+               <br>
+               <br>團隊成員
+               <br>馬毓君 陳凌漢 張小均 蘇倫可 彭麒安
+               <br>蔡碧芬 林孟增 陳怡蓁 林語瑄 余玳均 
+               <br>蔡孟君 劉欣蘭 郭文鱗
+               <br>
+               <br>
+               <hr>
+               版本 20190416
+               <br>
+               神秘號 <span id="level_show"></span>
+               <br>
+               <a href='https://www.symptoma.es/'>線上人數</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=0c4080b3672ec9681f6cf4eee399871754b83761'></script>
+               <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/516410/t/0"></script>
+               <hr>
+               <center>
+                  <img src="ddlab_logo_black.png" width="250px" />
+               </center>
+               <p>
+                  <!--國立臺南大學數位藝術與互動設計實驗室-->
+               </p>
             </article>
-
             <!-- About -->
             <article id="setting">
-                <h2 class="major">設定</h2>
-                請點選圖案，選擇陪伴您的情感助教
-                <br>
-                <br>
+               <h2 class="major">設定</h2>
+               請點選圖案，選擇陪伴您的情感助教
                <br>
+               <br>
+               <br>
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img class="set_agent" src="agent/owl/happy.gif" onclick="set_agent_name('owl')" alt="" />
+                  </div>
+                  <div class="face" style="width: 100%;text-align:left">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     溫柔的陪伴者，充滿感情的智慧貓頭鷹，喜歡聽音樂  
+                     <br>   
+                     Designer: 毓君
+                  </div>
+               </div>
+               <hr>
+
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img class="set_agent" src="agent/weiwei/happy.gif" onclick="set_agent_name('weiwei')" alt="" />
+                  </div>
+                  <div class="face" style="width: 100%;text-align:left">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     表演慾強，堪稱第一代ATS助教，陪伴DDLab很多年的老人
+                     <br>
+                     Designer: 宗遠 (2011) 
+                  </div>
+               </div>
+               <hr>
+
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img class="set_agent" src="agent/honda/happy.gif" onclick="set_agent_name('honda')"  alt="" />
+                  </div>
+                  <div class="face" style="width: 100%;text-align:left">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     看似大喇喇但其實很細心，人人看到都會很想抱
+                     <br>   
+                     Designer: 鋐達
+                  </div>
+               </div>
+               <hr>
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img class="set_agent" src="agent/temaki/happy.gif" onclick="set_agent_name('temaki')" alt="" />
+                  </div>
+                  <div class="face" style="width: 100%;text-align:left">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     人見人愛為了浪浪同伴們議題努力發聲，也是無可救藥的抹茶控
+                     <br>   
+                     Designer: 海苔
+                  </div>
+               </div>
+               <hr>
+               <div class="wrapper-chat">
+                  <div class="bot_div" style="width: 100%;text-align:center">
+                     <img class="set_agent" src="agent/lobobo/happy.gif" onclick="set_agent_name('lobobo')" alt="" />
+                        <img class="set_agent" src="agent/naletu/happy.gif" onclick="set_agent_name('naletu')" alt="" />
+                  </div>
 
 
-<div class="wrapper-chat">
-
-                    <div class="owl" style="width: 100%;text-align:center">
-                 <img class="set_agent" src="agent/owl/happy.gif" onclick="set_agent_name('owl')" alt="" />
-            </div>
-                      
- 
-                    <div class="face" style="width: 100%;text-align:left">
-                       <!-- <div class="" id="affdex_elements" style=""> -->
-                   溫柔的陪伴者，充滿感情的智慧貓頭鷹，喜歡聽音樂  
-                   <br>   
-                   Designer: 毓君
-             
-                   
-                    </div>
-
-                </div>
-<hr>
-
-
-                <div class="wrapper-chat">
-
-                    <div class="owl" style="width: 100%;text-align:center">
-                      <img class="set_agent" src="agent/honda/happy.gif" onclick="set_agent_name('honda')"  alt="" />
-             </div>
-                      
- 
-                    <div class="face" style="width: 100%;text-align:left">
-                       <!-- <div class="" id="affdex_elements" style=""> -->
-                      
-                      看似大喇喇但其實很細心，人人看到都會很想抱
-                      <br>   
-
-                      Designer: 紘達
-            
-                   
-                    </div>
-
-                </div>
-              
-             <hr>
-  
-
-
-                <div class="wrapper-chat">
-
-                    <div class="owl" style="width: 100%;text-align:center">
-                         <img class="set_agent" src="agent/weiwei/happy.gif" onclick="set_agent_name('weiwei')" alt="" />
-                    </div>
-                      
- 
-                    <div class="face" style="width: 100%;text-align:left">
-                       <!-- <div class="" id="affdex_elements" style=""> -->
-                         表演慾強，堪稱元老級的助教，陪伴DDLab很多年的老人
-                         <br>
-                         Designer: 敬偉 
-
-                   
-                    </div>
-
-                </div>
-                <hr>
+                  <div class="face" style="width: 100%;text-align:left">
+                     <!-- <div class="" id="affdex_elements" style=""> -->
+                     蘿蔔蔔與娜哩兔，兩個喜歡創作的好朋友
+                     2013年初代Mobile ATS開發失敗後，轉成線上問答系統KnowLedgeTube助教
+                     <br>
+                     Designer: 宜軒 
+                  </div>
+               </div>
+               <hr>
 
             </article>
-
             <!-- Contact -->
             <article id="test">
-                <h2 class="major">問卷</h2>
-                <form method="post" action="#">
-                    <div class="fields">
-                        <div class="field half">
-                            <label for="name">姓名</label>
-                            <input type="text" name="name" id="name" />
-                        </div>
-                        <div class="field half">
-                            <label for="email">信箱</label>
-                            <input type="text" name="email" id="email" />
-                        </div>
-                        <div class="field">
-                            <label for="message">有話想說</label>
-                            <textarea name="message" id="message" rows="4"></textarea>
-                        </div>
-                    </div>
-                    <ul class="actions">
-                        <li>
-                            <input type="submit" value="➤" class="primary"  />
-                        </li>
-                        <li>
-                            <input type="reset" value="重置" />
-                        </li>
-                    </ul>
-                </form>
+               <h2 class="major">問卷</h2>
+               <form method="post" action="#">
+                  <div class="fields">
+                     <div class="field half">
+                        <label for="name">姓名</label>
+                        <input type="text" name="name" id="name" />
+                     </div>
+                     <div class="field half">
+                        <label for="email">信箱</label>
+                        <input type="text" name="email" id="email" />
+                     </div>
+                     <div class="field">
+                        <label for="message">有話想說</label>
+                        <textarea name="message" id="message" rows="4"></textarea>
+                     </div>
+                  </div>
+                  <ul class="actions">
+                     <li>
+                        <input type="submit" value="➤" class="primary"  />
+                     </li>
+                     <li>
+                        <input type="reset" value="重置" />
+                     </li>
+                  </ul>
+               </form>
             </article>
-
-        </div>
-
-        <!-- Footer -->
-        <footer id="footer">
+         </div>
+         <!-- Footer -->
+         <footer id="footer">
             <p class="copyright">&copy; Untitled. Design: <a href="https://sites.google.com/site/nutnddlab/">DDLab</a>.</p>
-        </footer>
+         </footer>
+      </div>
+      <!-- BG -->
+      <div id="bg"></div>
+      <!-- Scripts -->
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <!-- Script: Smooth scrolling between anchors in the same page -->
+      <!--<script src="js/smooth-scroll.js" style=""></script>-->
+      <!-- tf -->
+      <!--   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9"></script>-->
+      <!-- utils -->
+      <!--     <script src="js/tracking-min.js"></script>
+         <script src="js/face-min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.0/sweetalert2.all.min.js"></script>
+         -->
+      <script type="text/javascript">
 
-    </div>
-
-    <!-- BG -->
-    <div id="bg"></div>
-
-    <!-- Scripts -->
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <!-- Script: Smooth scrolling between anchors in the same page -->
-    <!--<script src="js/smooth-scroll.js" style=""></script>-->
-
-
-    <!-- tf -->
- <!--   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9"></script>-->
-    <!-- utils -->
-  <!--     <script src="js/tracking-min.js"></script>
-    <script src="js/face-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.0/sweetalert2.all.min.js"></script>
--->
-
-
-
-    <script type="text/javascript">
-        function addcsstoiframe(argument) {
-            // body...
-            var $head = $("iframe").contents().find("head");
-            $head.append($("<link/>", {
-                rel: "stylesheet",
-                href: "../../assets/css/main.css",
-                type: "text/css"
-            }));
-
-        }
-
-        //讀取教材內容
-        function change_class(c) {
-              level_change();
-            if (c == 0) {
-                ch++; //下一章
-                  
-            } else ch = c;
-            //  $("#reading").load("class/"+book+"/"+ch+level+".htm");
-            loc = "class/" + book + "/" + ch + "_" + level + ".htm";
-            console.log(loc)
-            $('#read_iframe').attr('src', loc);
-            location.href = "#start"
+        //在教材(iframe)套用整個網站的風格css
+         function addcsstoiframe(argument) {
+             // body...
+             var $head = $("iframe").contents().find("head");
+             $head.append($("<link/>", {
+                 rel: "stylesheet",
+                 href: "../../assets/css/main.css",
+                 type: "text/css"
+             }));
+         
+         }
+         
+         //讀取教材內容
+         function change_class(c) {
+               level_change();
+             if (c == 0) {
+                 ch++; //下一章
+                   
+             } else ch = c;
+             //  $("#reading").load("class/"+book+"/"+ch+level+".htm");
+             loc = "class/" + book + "/" + ch + "_" + level + ".htm";
+             console.log(loc)
+             $('#read_iframe').attr('src', loc);
+             location.href = "#start"
+         
+         
+         }
+         
+         //切換章節後，卷軸拉到最上面
+         function reload_ch(argument) {
+             addcsstoiframe();
+             window.scrollTo(0, 0);
+         }
 
 
-        }
-
-        function reload_ch(argument) {
-            addcsstoiframe();
-            window.scrollTo(0, 0);
-        }
-        //轉換教材難度
+         //轉換教材難度 
+       /*    
         function level_change(argument) {
-            // body...
+      
+         //8個情緒的狀況 affectiva
+             if (man_face_emo == 7) //臉部無表情
+             {
+                 if (man_text_emo == 1) {
+                     level = level + 1 //變難
+                 }
+                 if (man_text_emo == -1) {
+                     level = level - 1 //變簡單
+                 }
+             }
+             if (man_face_emo == 0 || man_face_emo == 6) { //生氣或驚訝
+                 if (man_text_emo == 1) {
+                     level = level + 1
+                 }
+         
+             }
+             if (man_text_emo == -1) { 
+                 if (man_face_emo >= 1 && man_face_emo <= 5) { //難過或恐懼
+                     level = level - 1
+                 }
+             }
+             if (level > 3) level = 3
+             if (level < 1) level = 1
+         
+         }
+*/
+         //轉換教材難度
+         //4個情緒的狀況
+         function level_change(argument) {
+                 
 
-            if (man_face_emo == 7) 
-            {
-                if (man_text_emo == 1) {
-                    level = level + 1
-                }
-                if (man_text_emo == -1) {
-                    level = level - 1
-                }
-            }
-            if (man_face_emo == 0 || man_face_emo == 6) {
-                if (man_text_emo == 1) {
-                    level = level + 1
-                }
+             if (man_face_emo == 4) //臉部無表情
+             {
+                 if (man_text_emo == 1) {
+                     level = level + 1
+                 }
+                 if (man_text_emo == -1) {
+                     level = level - 1
+                 }
+             }
+             if (man_face_emo == 3 || man_face_emo == 4) { //臉部開心或面無表情
+                 if (man_text_emo == 1) {
+                     level = level + 1
+                 }
+         
+             }
+             if (man_text_emo == -1) {
+                 if (man_face_emo >= 0 && man_face_emo <= 2) { // 臉部:生氣,難過,驚訝
+                     level = level - 1
+                 }
+             }
+             if (level > 3) level = 3
+             if (level < 1) level = 1
+         
+         }
 
-            }
-            if (man_text_emo == -1) {
-                if (man_face_emo >= 1 && man_face_emo <= 5) {
-                    level = level - 1
-                }
-            }
-            if (level > 3) level = 3
-            if (level < 1) level = 1
-
-        }
-    </script>
-
-    <script type="text/javascript">
-        // SDK Needs to create video and canvas nodes in the DOM in order to function
-        // Here we are adding those nodes a predefined div.
-/*        var divRoot = $("#affdex_elements")[0];
-
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-             // some code..
-                     var width = 500
-                      var height = 500
-
-            }
-            else
-            {
-                    var width = 640
-                    var height = 480
-
-            }*/
-
-        
-        var talk = ['你現在心情如何?','吃飽未？', '嗨嗨', '今天過得好嗎？', '心情如何？', '喜歡上面的教材嗎？', '今天天氣如何？', '我喜歡喝咖啡，你呢？', '呵呵...', '喵喵喵喵', '哈囉你好哇！','現在的你有什麼感覺？']
-     //   var faceMode = affdex.FaceDetectorMode.SMALL_FACES*;
-
-        var level = 2 // 3難2中1易
-        var book = "music" // art or music
-        var ch = 1 //章節
-
-        var man_face_emo = 7; // 7為面無表情
-        var man_text_emo = 0;
-
-        var emo_file = ['angry', 'sad', 'surprised', 'happy','normal']
-
-        var face_emotion = [];
-        for (var i = 0; i < face_emotion.length; i++) {
-            face_emotion[i] = 0
-        };
-        //Construct a CameraDetector and specify the image width / height and face detector mode.
-    //    var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
-
-        //Enable detection of all Expressions, Emotions and Emojis classifiers.
-     //   detector.detectAllEmotions();
-      //  detector.detectAllExpressions();
-        //detector.detectAllEmojis();
-       // detector.detectAllAppearance();
-
-        //Add a callback to notify when the detector is initialized and ready for runing.
-     /*   detector.addEventListener("onInitializeSuccess", function() {
-       //     log('#logs', "The detector reports initialized");
-            //Display canvas instead of video feed because we want to draw the feature points on it
-      //      $("#face_video_canvas").css("display", "inline");
-            $("#face_video").css("display", "none");
-         //   $("#face_video_canvas").attr("height",$("#face_video").innerHeight())
-           // $("#face_video_canvas").attr("width",$("#face_video").innerWidth())
-   
-        });*/
-
-        // A $( document ).ready() block.
-
-var date = new Date();
-var timestamp = date.getTime();
-var chatter_time= timestamp
-var agent_name ="owl"
-
-function set_agent_name(name) {
-    // body...
-    agent_name = name
-    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
-    location.href="#start"
-
-
-}
-function happy(argument) {
-    // body...
-        $("#bot_img").attr("src", "agent/" + agent_name +'/happy' + ".gif")
-        //被摸就會開心
-
-}
-
-        $(document).ready(function() {
+      </script>
+      <script type="text/javascript">
+         // SDK Needs to create video and canvas nodes in the DOM in order to function
+         // Here we are adding those nodes a predefined div.
+         /*        var divRoot = $("#affdex_elements")[0];
+         
+             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+              // some code..
+                      var width = 500
+                       var height = 500
+         
+             }
+             else
+             {
+                     var width = 640
+                     var height = 480
+         
+             }*/
+         
+         //隨機開場白
+         var talk = ['你現在心情如何?','吃飽未？', '嗨嗨', '今天過得好嗎？', '心情如何？', '喜歡上面的教材嗎？', '今天天氣如何？', '我喜歡喝咖啡，你呢？', '呵呵...', '喵喵喵喵', '哈囉你好哇！','現在的你有什麼感覺？']
+         //   var faceMode = affdex.FaceDetectorMode.SMALL_FACES*;
+         
+         var level = 2 // 教材難度3:難/2:中/1:易
+         var book = "music" // 書 art or music
+         var ch = 1 //章節
+         // 命名格式為 1_1.html (章節_難度)
+         
+         var man_face_emo = 4; // 4為面無表情
+         var man_text_emo = 0; // 0為文字無表情
+         
+         var emo_file = ['angry', 'sad', 'surprised', 'happy','normal']
+         
+         var face_emotion = []; //存下每個情緒的強度數值
+         for (var i = 0; i < face_emotion.length; i++) {
+             face_emotion[i] = 0
+         };
 
 
-//
-$("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
+         //affectiva code
 
-//iOS以外的鍵盤需要空格才不會擋到畫面
-if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    $("#kyb_space").html("<br><br><br><br><br><br>")
-             // some code..
+         //Construct a CameraDetector and specify the image width / height and face detector mode.
+         //    var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
+         
+         //Enable detection of all Expressions, Emotions and Emojis classifiers.
+         //   detector.detectAllEmotions();
+         //  detector.detectAllExpressions();
+         //detector.detectAllEmojis();
+         // detector.detectAllAppearance();
+         
+         //Add a callback to notify when the detector is initialized and ready for runing.
+         /*   detector.addEventListener("onInitializeSuccess", function() {
+         //     log('#logs', "The detector reports initialized");
+             //Display canvas instead of video feed because we want to draw the feature points on it
+         //      $("#face_video_canvas").css("display", "inline");
+             $("#face_video").css("display", "none");
+          //   $("#face_video_canvas").attr("height",$("#face_video").innerHeight())
+            // $("#face_video_canvas").attr("width",$("#face_video").innerWidth())
+         
+         });*/
+         
+         
+         var date = new Date();
+         var timestamp = date.getTime();
+         var chatter_time= timestamp //取得現在時間當作使用者ID
 
-             //自動跳到輸入框的畫面避免鍵盤被擋到
-                     var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others
-    scrollTopPadding = 0;
+         var agent_name ="owl"  //一開始預設使用貓頭鷹     
+         
+         //切換不同agent圖片
+         function set_agent_name(name) { 
+         // body...
+         agent_name = name
+         $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
+         
+         //海苔的圖片高度太高特別調css
+         if(agent_name.indexOf("temaki")>-1)
+         {    $("#bot_img").attr("style", "height:23%;width:auto; left:10%;")    }
+         else{
+         $("#bot_img").attr("style", "")
+         } location.href="#start"
+         
+         }
 
-//
-$('#textInput').focus(function() { 
-    // get textarea's offset top position
-    var textareaTop = $(this).offset().top;
-    // scroll to the textarea
-    $htmlOrBody.scrollTop(textareaTop - scrollTopPadding);
-});
+         //摸到Agent直接切換Happy
+         function happy(argument) {
+         // body...
+         $("#bot_img").attr("src", "agent/" + agent_name +'/happy' + ".gif")
+         
+         }
+         
+         $(document).ready(function() {
+         
+         
+         //讀取Agent圖片
+                  $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
+         
+         //iOS以外的鍵盤需要空格才不會擋到畫面
+         if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+         $("#kyb_space").html("<br><br><br><br><br><br>")
+            
+                  //自動跳到輸入框的畫面避免鍵盤被擋到
+            var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others
+             scrollTopPadding = 0;
+             
+             //
+             $('#textInput').focus(function() { 
+             // get textarea's offset top position
+             var textareaTop = $(this).offset().top;
+             // scroll to the textarea
+             $htmlOrBody.scrollTop(textareaTop - scrollTopPadding);
+             });
+           
+         }
+         
+         
+         //判斷各種可能不正常執行的瀏覽器 , 建議Android用Chrome , iPhone用Sarfri
+         (function() {
+         var u = navigator.userAgent,
+         ua = navigator.userAgent.toLowerCase(),
+         isLineApp = u.indexOf("Line") > -1, // Line 內建瀏覽器
+         isFbApp = u.indexOf("FBAV") > -1, // FB App 內建瀏覽器
+         isWeixinApp = ua.match(/MicroMessenger/i) == "micromessenger"; // 微信內建瀏覽器
+         
+         // 如果是 Line 內建瀏覽器
+         if (isLineApp) {
+         // do sth
+         alert("請勿使用Line內建瀏覽器,開不了視訊鏡頭唷")
+         }
+         
+         // 如果是 FB App 內建瀏覽器
+         if (isFbApp) {
+         // do sth
+         alert("請勿使用FB內建瀏覽器,開不了視訊鏡頭唷")
+         
+         }
+         
+         // 如果是 微信內建瀏覽器
+         if (isWeixinApp) {
+         // do sth
+         alert("請勿使用WeChat內建瀏覽器,開不了視訊鏡頭唷")
+         
+         }
+         })();
+         
+         
+            //亂數決定開場白
+           //  random_talk = talk[ Math.floor((Math.random() * talk.length)) ]
 
-}
-
-
-
-(function() {
-var u = navigator.userAgent,
-ua = navigator.userAgent.toLowerCase(),
-isLineApp = u.indexOf("Line") > -1, // Line 內建瀏覽器
-isFbApp = u.indexOf("FBAV") > -1, // FB App 內建瀏覽器
-isWeixinApp = ua.match(/MicroMessenger/i) == "micromessenger"; // 微信內建瀏覽器
-
-// 如果是 Line 內建瀏覽器
-if (isLineApp) {
-// do sth
-alert("請勿使用Line內建瀏覽器,開不了視訊鏡頭唷")
-}
-
-// 如果是 FB App 內建瀏覽器
-if (isFbApp) {
-// do sth
-alert("請勿使用FB內建瀏覽器,開不了視訊鏡頭唷")
-
-}
-
-// 如果是 微信內建瀏覽器
-if (isWeixinApp) {
-// do sth
-alert("請勿使用WeChat內建瀏覽器,開不了視訊鏡頭唷")
-
-}
-})();
-
-
-
-          //  random_talk = talk[ Math.floor((Math.random() * talk.length)) ]
-          random_talk=talk[0]
+           //開場白
+           random_talk=talk[0];
             var botHtml = '<p class="botText"><span>' + random_talk+ '</span></p>';
-            $("#chatbox").append(botHtml);
+             $("#chatbox").append(botHtml);
+         
+             addcsstoiframe()
+                 //  $("#reading").load("./class/art/1_1.htm");
+         
+             console.log("ready!");
+         
+             //防止跳回初始歡迎頁
+             $('.close').click(function(e) {
+                 location.href = "#start"
+             });
 
-            addcsstoiframe()
-                //  $("#reading").load("./class/art/1_1.htm");
+          //affectiva code
+         //            onStart()
 
-            console.log("ready!");
+         //開始Webcam
+         startVideo()
+         
+             //每_秒偵測一次臉部表情
+             setInterval(bot_stat, 6000);
+         
+          //鍵盤Enter輸入文字
+             $('#input_text').on('keydown', function(e) {
+                 if (e.which == 13) {
+                     console.log($('#input_text').val())
+                     bot_chat($('#input_text').val())
+                     $('#input_text').val("")
+                     e.preventDefault();
+                 }
+             });
+         
 
-            //防止跳回初始歡迎頁
-            $('.close').click(function(e) {
-                location.href = "#start"
-            });
-//            onStart()
-startVideo()
-
-            //每_秒偵測一次臉部表情
-            setInterval(bot_stat, 6000);
-
-
-            $('#input_text').on('keydown', function(e) {
-                if (e.which == 13) {
-                    console.log($('#input_text').val())
-                    bot_chat($('#input_text').val())
-                    $('#input_text').val("")
-                    e.preventDefault();
-                }
-            });
-
-            $(function() {
-                $('[data-toggle="popover"]').popover()
-            })
-
-            ///
-
-            ///
-
-        });
-
-
-
-        function bot_stat() {
-            $("#level_show").text(level)
-            // body...
-            // $('#bot_img').popover('hide')
-
-            var top_i = 0,
-                top_val = 0;
-            for (var i = 0; i <= 6; i++) {
-                if(face_emotion[i]>0.4)
-       {         if (face_emotion[i] > Math.abs(top_val)) {
-                    top_val = face_emotion[i]
-                    top_i = i
-                }
-            }
-
-            };
-            man_face_emo = top_i
-
-            if (top_val == 0) //沒臉部表情
-            {
-                man_face_emo = 4;
-                if (Math.floor((Math.random() * 2) + 1) == 1) {
-                    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
-                } else {
-                    $("#bot_img").attr("src", "agent/" + agent_name +'/normal_b' + ".gif")
-                }
-            } else {
-                $("#bot_img").attr("src", "agent/" + agent_name +'/' + emo_file[top_i] + ".gif")
-            }
-            console.log(emo_file[man_face_emo])
-        }
-
-        function log(node_name, msg) {
-            $(node_name).append("<span>" + msg + "</span><br />")
-        }
-
-        //function executes when Start button is pushed.
-        function onStart() {
-            if (detector && !detector.isRunning) {
-                $("#logs").html("");
-                detector.start();
-            }
-            log('#logs', "Clicked the start button");
-        }
-
-        //function executes when the Stop button is pushed.
-        function onStop() {
-            log('#logs', "Clicked the stop button");
-            if (detector && detector.isRunning) {
-                detector.removeEventListener();
-                detector.stop();
-            }
-        };
-
-        //function executes when the Reset button is pushed.
-        function onReset() {
-            log('#logs', "Clicked the reset button");
-            if (detector && detector.isRunning) {
-                detector.reset();
-
-                $('#results').html("");
-            }
-        };
-/*
-        //Add a callback to notify when camera access is allowed
-        detector.addEventListener("onWebcamConnectSuccess", function() {
-            log('#logs', "Webcam access allowed");
-        });
-
-        //Add a callback to notify when camera access is denied
-        detector.addEventListener("onWebcamConnectFailure", function() {
-            log('#logs', "webcam denied");
-            console.log("Webcam access denied");
-        });
-
-        //Add a callback to notify when detector is stopped
-        detector.addEventListener("onStopSuccess", function() {
-            log('#logs', "The detector reports stopped");
-            alert("The detector reports stopped")
-            $("#results").html("");
-        });
-
-        //Add a callback to receive the results from processing an image.
-        //The faces object contains the list of the faces detected in an image.
-        //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
-        detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
-            $('#results').html("");
-            log('#results', "Timestamp: " + timestamp.toFixed(2));
-            log('#results', "Number of faces found: " + faces.length);
-            if (faces.length > 0) {
-
-                var ii = 0;
-
-                var val = faces[0].emotions['angry']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['sad']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['surprise']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['happy']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['anger']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['fear']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['surprise']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['valence']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-                var val = faces[0].emotions['engagement']
-                face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
-
-                log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
-                log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
-                    return val.toFixed ? Number(val.toFixed(0)) : val;
-                }));
-                log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
-                    return val.toFixed ? Number(val.toFixed(0)) : val;
-                }));
-                log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
-                drawFeaturePoints(image, faces[0].featurePoints);
-            }
-        });
-*/
-        //Draw the detected facial feature points on the image
-        function drawFeaturePoints(img, featurePoints) {
-            var contxt = $('#face_video_canvas')[0].getContext('2d');
-
-            var hRatio = contxt.canvas.width / img.width;
-            var vRatio = contxt.canvas.height / img.height;
-            var ratio = Math.min(hRatio, vRatio);
-
-            contxt.strokeStyle = "#FFFFFF";
-            for (var id in featurePoints) {
-                contxt.beginPath();
-                contxt.arc(featurePoints[id].x,
-                    featurePoints[id].y, 2, 0, 2 * Math.PI);
-                contxt.stroke();
-
-            }
-        }
-    </script>
-
-    <script>
-        // tell the embed parent frame the height of the content
-        if (window.parent && window.parent.parent) {
-            window.parent.parent.postMessage(["resultsFrame", {
-                height: document.body.getBoundingClientRect().height,
-                slug: "None"
-            }], "*")
-        }
-    </script>
+         
+         });
+         
+         
+         
+         function bot_stat() {
+             //神秘號=難度
+             $("#level_show").text(level)
 
 
+             //比對出情緒數質最強的
+         
+             var top_i = 0,
+                 top_val = 0;
+             for (var i = 0; i <= 6; i++) {
+                 if(face_emotion[i]>0.4)
+                {
+                     if (face_emotion[i] > Math.abs(top_val)) {
+                     top_val = face_emotion[i]
+                     top_i = i
+                 }
+             }
+         
+             };
+             man_face_emo = top_i
 
-    <body>
-        <script src="./js/libs/utils.js"></script>
-        <script src="./build/clmtrackr.js"></script>
-        <script src="./models/model_pca_20_svm.js"></script>
-        <script src="./js/libs/Stats.js"></script>
-        <script src="./js/libs/d3.min.js"></script>
-        <script src="./js/emotion_classifier.js"></script>
-        <script src="./js/emotionmodel.js"></script>
-    
-            <script>
-                var vid = document.getElementById('videoel');
-                var vid_width = vid.width;
-                var vid_height = vid.height;
-                var overlay = document.getElementById('overlay');
-                var overlayCC = overlay.getContext('2d');
 
-                /********** check and set up video/webcam **********/
+           //沒情緒 兩種臉部(無表情)隨機互換
+             if (top_val == 0) 
+             {
+                 man_face_emo = 4;
+                 if (Math.floor((Math.random() * 2) + 1) == 1) {
+                     $("#bot_img").attr("src", "agent/" + agent_name +'/normal_a' + ".gif")
+                 } else {
+                     $("#bot_img").attr("src", "agent/" + agent_name +'/normal_b' + ".gif")
+                 }
+             } 
+             //有情緒 切換該臉部表情
+             else {
+                 $("#bot_img").attr("src", "agent/" + agent_name +'/' + emo_file[top_i] + ".gif")
+             }
+             console.log(emo_file[man_face_emo])
+         }
+         
+         function log(node_name, msg) {
+             $(node_name).append("<span>" + msg + "</span><br />")
+         }
+         
+         //affectiva code
+        /*
+         //function executes when Start button is pushed.
+         function onStart() {
+             if (detector && !detector.isRunning) {
+                 $("#logs").html("");
+                 detector.start();
+             }
+             log('#logs', "Clicked the start button");
+         }
+         
+         //function executes when the Stop button is pushed.
+         function onStop() {
+             log('#logs', "Clicked the stop button");
+             if (detector && detector.isRunning) {
+                 detector.removeEventListener();
+                 detector.stop();
+             }
+         };
+         
+         //function executes when the Reset button is pushed.
+         function onReset() {
+             log('#logs', "Clicked the reset button");
+             if (detector && detector.isRunning) {
+                 detector.reset();
+         
+                 $('#results').html("");
+             }
+         };
 
-                function enablestart() {
+         */
+         /*
+         //Add a callback to notify when camera access is allowed
+         detector.addEventListener("onWebcamConnectSuccess", function() {
+             log('#logs', "Webcam access allowed");
+         });
+         
+         //Add a callback to notify when camera access is denied
+         detector.addEventListener("onWebcamConnectFailure", function() {
+             log('#logs', "webcam denied");
+             console.log("Webcam access denied");
+         });
+         
+         //Add a callback to notify when detector is stopped
+         detector.addEventListener("onStopSuccess", function() {
+             log('#logs', "The detector reports stopped");
+             alert("The detector reports stopped")
+             $("#results").html("");
+         });
+         
+         //Add a callback to receive the results from processing an image.
+         //The faces object contains the list of the faces detected in an image.
+         //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
+         detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
+             $('#results').html("");
+             log('#results', "Timestamp: " + timestamp.toFixed(2));
+             log('#results', "Number of faces found: " + faces.length);
+             if (faces.length > 0) {
+         
+                 var ii = 0;
+         
+                 var val = faces[0].emotions['angry']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['sad']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['surprise']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['happy']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['anger']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['fear']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['surprise']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['valence']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+                 var val = faces[0].emotions['engagement']
+                 face_emotion[ii++] = val.toFixed ? Number(val.toFixed(0)) : val;
+         
+                 log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
+                 log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
+                     return val.toFixed ? Number(val.toFixed(0)) : val;
+                 }));
+                 log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
+                     return val.toFixed ? Number(val.toFixed(0)) : val;
+                 }));
+                 log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
+                 drawFeaturePoints(image, faces[0].featurePoints);
+             }
+         });
+        //affectiva code
+         //Draw the detected facial feature points on the image
+         function drawFeaturePoints(img, featurePoints) {
+             var contxt = $('#face_video_canvas')[0].getContext('2d');
+         
+             var hRatio = contxt.canvas.width / img.width;
+             var vRatio = contxt.canvas.height / img.height;
+             var ratio = Math.min(hRatio, vRatio);
+         
+             contxt.strokeStyle = "#FFFFFF";
+             for (var id in featurePoints) {
+                 contxt.beginPath();
+                 contxt.arc(featurePoints[id].x,
+                     featurePoints[id].y, 2, 0, 2 * Math.PI);
+                 contxt.stroke();
+         
+             }
+         } */
+      </script>
+
+      <!--
+        使用clmtrackr辨識臉部情緒 效能很好
+      -->
+   <script src="./js/libs/utils.js"></script>
+         <script src="./build/clmtrackr.js"></script>
+         <script src="./models/model_pca_20_svm.js"></script>
+         <script src="./js/libs/Stats.js"></script>
+         <script src="./js/libs/d3.min.js"></script>
+         <script src="./js/emotion_classifier.js"></script>
+         <script src="./js/emotionmodel.js"></script>
+         <script>
+            var vid = document.getElementById('videoel');
+            var vid_width = vid.width;
+            var vid_height = vid.height;
+            var overlay = document.getElementById('overlay');
+            var overlayCC = overlay.getContext('2d');
+            
+            /********** check and set up video/webcam **********/
+            
+            function enablestart() {
             //        var startbutton = document.getElementById('startbutton');
-                 //   startbutton.value = "start";
-                //    startbutton.disabled = null;
-                }
-
-                function adjustVideoProportions() {
-                    // resize overlay and video if proportions are different
-                    // keep same height, just change width
-                    var proportion = vid.videoWidth/vid.videoHeight;
-                    vid_width = Math.round(vid_height * proportion);
-                    vid.width = vid_width;
-                
-                 //  overlay.width = vid_width;
-                }
-
-                function gumSuccess( stream ) {
-                    // add camera stream if getUserMedia succeeded
-                    if ("srcObject" in vid) {
-                        vid.srcObject = stream;
-                    } else {
-                        vid.src = (window.URL && window.URL.createObjectURL(stream));
-                    }
-                    vid.onloadedmetadata = function() {
-                        adjustVideoProportions();
-                        vid.play();
-                    }
-                    vid.onresize = function() {
-                        adjustVideoProportions();
-                        if (trackingStarted) {
-                            ctrack.stop();
-                            ctrack.reset();
-                            ctrack.start(vid);
-                        }
-                    }
-                }
-
-                function gumFail() {
-                    alert("喔不，你的瀏覽器沒辦法提供視訊鏡頭，如果沒出現要求鏡頭授權畫面，請改用Android Chrome App或iOS Sarfri是試看喔！There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
-                }
-
-                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-                window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
-
-                // check for camerasupport
-                if (navigator.mediaDevices) {
-                    navigator.mediaDevices.getUserMedia({video : true}).then(gumSuccess).catch(gumFail);
-                } else if (navigator.getUserMedia) {
-                    navigator.getUserMedia({video : true}, gumSuccess, gumFail);
+             //   startbutton.value = "start";
+            //    startbutton.disabled = null;
+            }
+            
+            function adjustVideoProportions() {
+                // resize overlay and video if proportions are different
+                // keep same height, just change width
+                var proportion = vid.videoWidth/vid.videoHeight;
+                vid_width = Math.round(vid_height * proportion);
+                vid.width = vid_width;
+            
+             //  overlay.width = vid_width;
+            }
+            
+            function gumSuccess( stream ) {
+                // add camera stream if getUserMedia succeeded
+                if ("srcObject" in vid) {
+                    vid.srcObject = stream;
                 } else {
-                    alert("This demo depends on getUserMedia, which your browser does not seem to support. :(");
+                    vid.src = (window.URL && window.URL.createObjectURL(stream));
                 }
-
-                vid.addEventListener('canplay', enablestart, false);
-
-                /*********** setup of emotion detection *************/
-
-                // set eigenvector 9 and 11 to not be regularized. This is to better detect motion of the eyebrows
-                pModel.shapeModel.nonRegularizedVectors.push(9);
-                pModel.shapeModel.nonRegularizedVectors.push(11);
-
-                var ctrack = new clm.tracker({useWebGL : true});
-                ctrack.init(pModel);
-                var trackingStarted = false;
-
-                function startVideo() {
-                    // start video
+                vid.onloadedmetadata = function() {
+                    adjustVideoProportions();
                     vid.play();
-                    // start tracking
-                    ctrack.start(vid);
-                    trackingStarted = true;
-                    // start loop to draw face
-                    drawLoop();
                 }
-
-                function drawLoop() {
-                    requestAnimFrame(drawLoop);
-                    overlayCC.clearRect(0, 0, 400 , 300);
-                    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
-                    if (ctrack.getCurrentPosition()) {
-                        ctrack.draw(overlay);
+                vid.onresize = function() {
+                    adjustVideoProportions();
+                    if (trackingStarted) {
+                        ctrack.stop();
+                        ctrack.reset();
+                        ctrack.start(vid);
                     }
-                    var cp = ctrack.getCurrentParameters();
-
-                    var er = ec.meanPredict(cp);
-                    if (er) {
-                        updateData(er);
-
-                        for (var i = 0;i < er.length;i++) {
-                            face_emotion[i]=er[i].value
-                           //  console.log(er)
-                            if (er[i].value > 0.4) {
-                                //     console.log(er)
-
-                              //  document.getElementById('icon'+(i+1)).style.visibility = 'visible';
-                            } else {
-                              //  document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
-                            }
+                }
+            }
+            
+            function gumFail() {
+                alert("喔不，你的瀏覽器沒辦法提供視訊鏡頭，如果沒出現要求鏡頭授權畫面，請改用Android Chrome App或iOS Sarfri是試看喔！There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
+            }
+            
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
+            
+            // check for camerasupport
+            if (navigator.mediaDevices) {
+                navigator.mediaDevices.getUserMedia({video : true}).then(gumSuccess).catch(gumFail);
+            } else if (navigator.getUserMedia) {
+                navigator.getUserMedia({video : true}, gumSuccess, gumFail);
+            } else {
+                alert("This demo depends on getUserMedia, which your browser does not seem to support. :(");
+            }
+            
+            vid.addEventListener('canplay', enablestart, false);
+            
+            /*********** setup of emotion detection *************/
+            
+            // set eigenvector 9 and 11 to not be regularized. This is to better detect motion of the eyebrows
+            pModel.shapeModel.nonRegularizedVectors.push(9);
+            pModel.shapeModel.nonRegularizedVectors.push(11);
+            
+            var ctrack = new clm.tracker({useWebGL : true});
+            ctrack.init(pModel);
+            var trackingStarted = false;
+            
+            function startVideo() {
+                // start video
+                vid.play();
+                // start tracking
+                ctrack.start(vid);
+                trackingStarted = true;
+                // start loop to draw face
+                drawLoop();
+            }
+            
+            function drawLoop() {  
+                requestAnimFrame(drawLoop);
+                overlayCC.clearRect(0, 0, 400 , 300);
+                //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
+                if (ctrack.getCurrentPosition()) {
+                    ctrack.draw(overlay);
+                }
+                var cp = ctrack.getCurrentParameters();
+            
+                var er = ec.meanPredict(cp);
+                if (er) {
+                    updateData(er);
+            
+                    for (var i = 0;i < er.length;i++) {
+                        face_emotion[i]=er[i].value
+                       //  console.log(er)
+                        if (er[i].value > 0.4) { //0.4代表情緒強烈
+                            //     console.log(er)
+            
+                          //  document.getElementById('icon'+(i+1)).style.visibility = 'visible';
+                        } else {
+                          //  document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
                         }
                     }
                 }
-
-                delete emotionModel['disgusted'];
-                delete emotionModel['fear'];
-                var ec = new emotionClassifier();
-                ec.init(emotionModel);
-                var emotionData = ec.getBlank();
-
-                /************ d3 code for barchart *****************/
-
-
-                var margin = {top : 20, right : 20, bottom : 10, left : 40},
-                    width = 400 - margin.left - margin.right,
-                    height = 100 - margin.top - margin.bottom;
-
-                var barWidth = 30;
-
-                var formatPercent = d3.format(".0%");
-
-                var x = d3.scale.linear()
-                    .domain([0, ec.getEmotions().length]).range([margin.left, width+margin.left]);
-
-                var y = d3.scale.linear()
-                    .domain([0,1]).range([0, height]);
-
-                var svg = d3.select("#emotion_chart").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-/*
-                svg.selectAll("rect").
-                    data(emotionData).
-                    enter().
-                    append("svg:rect").
-                    attr("x", function(datum, index) { return x(index); }).
-                    attr("y", function(datum) { return height - y(datum.value); }).
-                    attr("height", function(datum) { return y(datum.value); }).
-                    attr("width", barWidth).
-                    attr("fill", "#2d578b");
-
-                svg.selectAll("text.labels").
-                    data(emotionData).
-                    enter().
-                    append("svg:text").
-                    attr("x", function(datum, index) { return x(index) + barWidth; }).
-                    attr("y", function(datum) { return height - y(datum.value); }).
-                    attr("dx", -barWidth/2).
-                    attr("dy", "1.2em").
-                    attr("text-anchor", "middle").
-                    text(function(datum) { return datum.value;}).
-                    attr("fill", "white").
-                    attr("class", "labels");
-
-                svg.selectAll("text.yAxis").
-                    data(emotionData).
-                    enter().append("svg:text").
-                    attr("x", function(datum, index) { return x(index) + barWidth; }).
-                    attr("y", height).
-                    attr("dx", -barWidth/2).
-                    attr("text-anchor", "middle").
-                    attr("style", "font-size: 12").
-                    text(function(datum) { return datum.emotion;}).
-                    attr("transform", "translate(0, 18)").
-                    attr("class", "yAxis");
-*/
-                function updateData(data) {
-                    // update
-                    var rects = svg.selectAll("rect")
-                        .data(data)
-                        .attr("y", function(datum) { return height - y(datum.value); })
-                        .attr("height", function(datum) { return y(datum.value); });
-                    var texts = svg.selectAll("text.labels")
-                        .data(data)
-                        .attr("y", function(datum) { return height - y(datum.value); })
-                        .text(function(datum) { return datum.value.toFixed(1);});
-
-                    // enter
-                    rects.enter().append("svg:rect");
-                    texts.enter().append("svg:text");
-
-                    // exit
-                    rects.exit().remove();
-                    texts.exit().remove();
-                }
-
-                /******** stats ********/
-
+            }
+            //刪除兩個情緒模型 可能重新訓練會更準
+            delete emotionModel['disgusted'];
+            delete emotionModel['fear'];
+            var ec = new emotionClassifier();
+            ec.init(emotionModel);
+            var emotionData = ec.getBlank();
+            
+            /************ d3 code for barchart *****************/
+            
+            
+            var margin = {top : 20, right : 20, bottom : 10, left : 40},
+                width = 400 - margin.left - margin.right,
+                height = 100 - margin.top - margin.bottom;
+            
+            var barWidth = 30;
+            
+            var formatPercent = d3.format(".0%");
+            
+            var x = d3.scale.linear()
+                .domain([0, ec.getEmotions().length]).range([margin.left, width+margin.left]);
+            
+            var y = d3.scale.linear()
+                .domain([0,1]).range([0, height]);
+            
+            var svg = d3.select("#emotion_chart").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            /* 
+            //畫出各種情緒的動態數值圖
+            svg.selectAll("rect").
+                data(emotionData).
+                enter().
+                append("svg:rect").
+                attr("x", function(datum, index) { return x(index); }).
+                attr("y", function(datum) { return height - y(datum.value); }).
+                attr("height", function(datum) { return y(datum.value); }).
+                attr("width", barWidth).
+                attr("fill", "#2d578b");
+            
+            svg.selectAll("text.labels").
+                data(emotionData).
+                enter().
+                append("svg:text").
+                attr("x", function(datum, index) { return x(index) + barWidth; }).
+                attr("y", function(datum) { return height - y(datum.value); }).
+                attr("dx", -barWidth/2).
+                attr("dy", "1.2em").
+                attr("text-anchor", "middle").
+                text(function(datum) { return datum.value;}).
+                attr("fill", "white").
+                attr("class", "labels");
+            
+            svg.selectAll("text.yAxis").
+                data(emotionData).
+                enter().append("svg:text").
+                attr("x", function(datum, index) { return x(index) + barWidth; }).
+                attr("y", height).
+                attr("dx", -barWidth/2).
+                attr("text-anchor", "middle").
+                attr("style", "font-size: 12").
+                text(function(datum) { return datum.emotion;}).
+                attr("transform", "translate(0, 18)").
+                attr("class", "yAxis");
+            */
+            function updateData(data) {
+                // update
+                var rects = svg.selectAll("rect")
+                    .data(data)
+                    .attr("y", function(datum) { return height - y(datum.value); })
+                    .attr("height", function(datum) { return y(datum.value); });
+                var texts = svg.selectAll("text.labels")
+                    .data(data)
+                    .attr("y", function(datum) { return height - y(datum.value); })
+                    .text(function(datum) { return datum.value.toFixed(1);});
+            
+                // enter
+                rects.enter().append("svg:rect");
+                texts.enter().append("svg:text");
+            
+                // exit
+                rects.exit().remove();
+                texts.exit().remove();
+            }
+            
+            /******** stats ********/
+            
             /*    stats = new Stats();
-                stats.domElement.style.position = 'absolute';
-                stats.domElement.style.top = '0px';
-                document.getElementById('container').appendChild( stats.domElement );
-
-                // update stats on every iteration
-                document.addEventListener('clmtrackrIteration', function(event) {
-                    stats.update();
-                }, false);
-                */
-
-            </script>
-
-        </div>
-
-</body>
-
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.top = '0px';
+            document.getElementById('container').appendChild( stats.domElement );
+            
+            // update stats on every iteration
+            document.addEventListener('clmtrackrIteration', function(event) {
+                stats.update();
+            }, false);
+            */
+            
+         </script>
+         </div>
 </html>

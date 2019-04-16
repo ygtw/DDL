@@ -1658,7 +1658,7 @@ button.close {
       text-align: center;
     vertical-align: middle;
 }
-.owl {
+.bot_div {
   grid-column: 1 / 2;
   grid-row: 2;
 }
